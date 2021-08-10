@@ -1,5 +1,5 @@
 import styled from "styled-components/macro";
-import { Link as ReachRouterLink } from "react-router-dom";
+import { Link as ReactRouterLink } from "react-router-dom";
 
 export const Container = styled.div`
   display: flex;
@@ -7,25 +7,12 @@ export const Container = styled.div`
   height: 100px;
   align-items: center;
   justify-content: space-between;
-
-  a {
-    display: flex;
-  }
-
-  @media (max-width: 1000px) {
-    margin: 0 30px;
-  }
 `;
 
 export const Logo = styled.img`
   height: auto;
   width: 134px;
   margin-right: 40px;
-
-  @media (min-width: 1449px) {
-    height: 45px;
-    width: 167px;
-  }
 `;
 
 export const ButtonContainer = styled.div`
@@ -34,18 +21,18 @@ export const ButtonContainer = styled.div`
   width: 200px;
 `;
 
-export const ButtonLink = styled(ReachRouterLink)`
+export const ButtonLink = styled(ReactRouterLink)`
   background-color: #4cce59;
+  color: #ffffff;
+  text-align: center;
   width: 90px;
   height: fit-content;
-  color: white;
   border: 0;
   font-size: 15px;
   border-radius: 3px;
   padding: 8px 17px;
   cursor: pointer;
   text-decoration: none;
-  justify-content: center;
 
   &:hover {
     background: #3aa345;

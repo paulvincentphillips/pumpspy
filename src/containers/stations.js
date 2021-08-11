@@ -12,11 +12,11 @@ export function StationsContainer({ children }) {
             <StationGrid.StationInfo>{item.name}</StationGrid.StationInfo>
             <StationGrid.StationInfo>{item.address}</StationGrid.StationInfo>
             <StationGrid.StationInfo>
-              Updated: {item.updated}
+              Last Updated: {item.updated}
             </StationGrid.StationInfo>
           </StationGrid.InfoBox>
           <StationGrid.PriceBox>
-            <StationGrid.PriceRow >
+            <StationGrid.PriceRow>
               <StationGrid.Price>Petrol: {item.petrol}</StationGrid.Price>
               <StationGrid.EditButton
                 src={"images/icons/edit.png"}

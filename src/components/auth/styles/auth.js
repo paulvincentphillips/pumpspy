@@ -39,6 +39,8 @@ export const SubmitButton = styled.button`
   }
 `;
 
+export const Text = styled.p``;
+
 export const TextLink = styled(ReactRouterLink)`
   color: #4cce59;
 `;

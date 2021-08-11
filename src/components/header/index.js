@@ -2,11 +2,11 @@ import React from "react";
 import { Link as ReactRouterLink } from "react-router-dom";
 import { Container, Logo, ButtonContainer, ButtonLink } from "./styles/header";
 
-export default function Header({ children, ...restProps }) {
+const Header = ({ children, ...restProps }) => {
   return <Container {...restProps}>{children}</Container>;
 }
 
-Header.Logo = function HeaderLogo({ to, ...restProps }) {
+Header.Logo = ({ to, ...restProps }) => {
     return (
       <ReactRouterLink to={to}>
         <Logo {...restProps} />
@@ -14,10 +14,12 @@ Header.Logo = function HeaderLogo({ to, ...restProps }) {
     );
 }
 
-Header.ButtonContainer = function HeaderButtonContainer({ ...restProps}){
+Header.ButtonContainer = ({ ...restProps}) => {
     return <ButtonContainer {...restProps}/>
 };
 
-Header.ButtonLink = function HeaderButtonLink({ children, ...restProps }) {
+Header.ButtonLink = ({ children, ...restProps }) => {
   return <ButtonLink {...restProps}>{children}</ButtonLink>;
 };
+
+export default Header;

@@ -8,42 +8,43 @@ import {
   PriceBox,
   PriceRowContainer,
   Price,
-  EditButton
+  EditButton,
 } from "./styles/stations";
 
-export default function StationGrid({ ...restProps }) {
+const StationGrid = ({ ...restProps }) => {
   return <GridContainer {...restProps} />;
-}
+};
 
-StationGrid.StationRow = function ({ ...restProps }) {
+StationGrid.StationRow = ({ ...restProps }) => {
   return <RowContainer {...restProps} />;
 };
 
-StationGrid.Logo = function ({ ...restProps }) {
+StationGrid.Logo = ({ ...restProps }) => {
   return <Logo {...restProps} />;
 };
 
-StationGrid.InfoBox = function ({ ...restProps }) {
+StationGrid.InfoBox = ({ ...restProps }) => {
   return <InfoContainer {...restProps} />;
 };
 
-StationGrid.StationInfo = function ({ children, ...restProps }) {
+StationGrid.StationInfo = ({ children, ...restProps }) => {
   return <StationInfo {...restProps}>{children}</StationInfo>;
 };
 
-StationGrid.PriceBox = function ({ children, ...restProps }) {
+StationGrid.PriceBox = ({ children, ...restProps }) => {
   return <PriceBox {...restProps}>{children}</PriceBox>;
 };
 
-StationGrid.PriceRow = function ({ ...restProps}) {
-    return <PriceRowContainer {...restProps}/>
-}
+StationGrid.PriceRow = ({ ...restProps }) => {
+  return <PriceRowContainer {...restProps} />;
+};
 
-StationGrid.Price = function ({ children, ...restProps }) {
+StationGrid.Price = ({ children, ...restProps }) => {
   return <Price {...restProps}>{children}</Price>;
 };
 
-StationGrid.EditButton = function ({ children, ...restProps }) {
-    return <EditButton {...restProps}>{children}</EditButton>;
-  };
+StationGrid.EditButton = ({ children, ...restProps }) => {
+  return <EditButton {...restProps}>{children}</EditButton>;
+};
 
+export default StationGrid;

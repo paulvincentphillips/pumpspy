@@ -48,7 +48,7 @@ export const Price = styled.p`
   width: 95px;
 `;
 
-export const EditButton = styled.img`
+export const EditButton = styled.button`
   display: inline-block
   height: auto;
   width: 18px;

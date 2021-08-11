@@ -2,7 +2,7 @@ import React from "react";
 import { HeaderContainer } from "../containers/header";
 import { SignupContainer } from "../containers/signup";
 
-export default function Signup() {
+const Signup = () => {
   return (
     <>
       <HeaderContainer />
@@ -10,3 +10,5 @@ export default function Signup() {
     </>
   );
 }
+
+export default Signup;

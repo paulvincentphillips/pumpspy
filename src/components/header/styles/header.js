@@ -18,14 +18,14 @@ export const Logo = styled.img`
 export const ButtonContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 200px;
+  width: 240px;
 `;
 
 export const ButtonLink = styled(ReactRouterLink)`
   background-color: #4cce59;
   color: #ffffff;
   text-align: center;
-  width: 90px;
+  width: 110px;
   height: fit-content;
   border: 0;
   font-size: 15px;

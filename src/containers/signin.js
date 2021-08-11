@@ -2,7 +2,7 @@ import React from "react";
 import Auth from "../components/auth/index";
 import { SIGN_UP } from "../constants/routes";
 
-export function SigninContainer({ children }) {
+export const SigninContainer = () => {
   return (
     <Auth>
       <Auth.Title>Welcome Back</Auth.Title>
@@ -11,10 +11,10 @@ export function SigninContainer({ children }) {
         <Auth.InputField placeholder={"Password"}></Auth.InputField>
         <Auth.SubmitButton>Login</Auth.SubmitButton>
       </Auth.Form>
-      <p>
+      <Auth.Text>
         {" "}
         Don't have an account? <Auth.TextLink to={SIGN_UP}>Sign Up</Auth.TextLink>
-      </p>
+      </Auth.Text>
     </Auth>
   );
 }

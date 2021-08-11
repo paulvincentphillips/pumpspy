@@ -2,7 +2,8 @@ import React from "react";
 import StationGrid from "../components/stations/index";
 import stationsData from "../fixtures/stations.json";
 
-export function StationsContainer({ children }) {
+export const StationsContainer = () => {
+
   return (
     <StationGrid>
       {stationsData.map((item) => (
@@ -35,4 +36,4 @@ export function StationsContainer({ children }) {
       ))}
     </StationGrid>
   );
-}
+};

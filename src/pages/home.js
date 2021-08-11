@@ -2,7 +2,7 @@ import React from "react";
 import { HeaderContainer } from "../containers/header";
 import { StationsContainer } from "../containers/stations";
 
-export default function Home() {
+const Home = () => {
   return (
     <>
       <HeaderContainer />
@@ -10,3 +10,5 @@ export default function Home() {
     </>
   );
 }
+
+export default Home;

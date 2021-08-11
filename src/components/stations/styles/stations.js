@@ -5,7 +5,6 @@ export const GridContainer = styled.div`
   flex-direction: column;
   height: auto;
   align-items: center;
-  justify-content: center;
 `;
 
 export const RowContainer = styled.div`

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, createContext, useContext } from "react";
 import {
   GridContainer,
   RowContainer,
@@ -10,6 +10,8 @@ import {
   Price,
   EditButton,
 } from "./styles/stations";
+
+const PriceContext = createContext();
 
 const StationGrid = ({ ...restProps }) => {
   return <GridContainer {...restProps} />;
@@ -35,16 +37,36 @@ StationGrid.PriceBox = ({ children, ...restProps }) => {
   return <PriceBox {...restProps}>{children}</PriceBox>;
 };
 
-StationGrid.PriceRow = ({ ...restProps }) => {
-  return <PriceRowContainer {...restProps} />;
+StationGrid.PriceRow = function StationPriceRow({ fuelPrice, ...restProps }) {
+  const [price, setPrice] = useState(fuelPrice);
+  return (
+    <PriceContext.Provider value={{ price, setPrice }}>
+      <PriceRowContainer {...restProps} />
+    </PriceContext.Provider>
+  );
 };
 
-StationGrid.Price = ({ children, ...restProps }) => {
-  return <Price {...restProps}>{children}</Price>;
+StationGrid.Price = function StationPrice({
+  fuelPrice,
+  children,
+  ...restProps
+}) {
+  const { price } = useContext(PriceContext);
+
+  return (
+    <Price {...restProps}>
+      {children} {price}
+    </Price>
+  );
 };
 
-StationGrid.EditButton = ({ children, ...restProps }) => {
-  return <EditButton {...restProps}>{children}</EditButton>;
+StationGrid.EditButton = function StationEditButton({
+  children,
+  ...restProps
+}) {
+  const { price, setPrice } = useContext(PriceContext);
+
+  return <EditButton onClick={() => setPrice((price) => price + 1)} {...restProps}>{children}</EditButton>;
 };
 
 export default StationGrid;

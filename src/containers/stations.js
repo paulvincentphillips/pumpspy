@@ -17,15 +17,15 @@ export const StationsContainer = () => {
             </StationGrid.StationInfo>
           </StationGrid.InfoBox>
           <StationGrid.PriceBox>
-            <StationGrid.PriceRow>
-              <StationGrid.Price>Petrol: {item.petrol}</StationGrid.Price>
+            <StationGrid.PriceRow fuelPrice={item.petrol}>
+              <StationGrid.Price>Petrol: </StationGrid.Price>
               <StationGrid.EditButton
                 src={"images/icons/edit.png"}
                 alt="edit-button"
               />
             </StationGrid.PriceRow>
-            <StationGrid.PriceRow>
-              <StationGrid.Price>Diesel: {item.diesel}</StationGrid.Price>
+            <StationGrid.PriceRow fuelPrice={item.diesel}>
+              <StationGrid.Price>Diesel: </StationGrid.Price>
               <StationGrid.EditButton
                 src={"images/icons/edit.png"}
                 alt="edit-button"

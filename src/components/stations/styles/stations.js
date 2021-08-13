@@ -49,7 +49,7 @@ export const Price = styled.p`
 `;
 
 export const EditButton = styled.button`
-  display: inline-block
+  display: inline-block;
   height: auto;
   width: 18px;
   cursor: pointer;

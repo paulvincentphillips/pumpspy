@@ -1,14 +1,14 @@
 import React from "react";
 import Modal from "../components/modal/index";
 
-export const ModalContainer = ({fuelPrice, close}) => {
+export const ModalContainer = ({price, close}) => {
   return (
     <Modal>
       <Modal.Container>
-        <Modal.Title>Edit Price</Modal.Title>
-        <Modal.PriceTextBox fuelPrice={fuelPrice}></Modal.PriceTextBox>
+        <Modal.Title>Edit Price {price}</Modal.Title>
+        <Modal.PriceTextBox></Modal.PriceTextBox>
         <Modal.ButtonContainer>
-          <Modal.Button>Confirm</Modal.Button>
+          <Modal.Button close={close}>Confirm</Modal.Button>
           <Modal.Button close={close}>Cancel</Modal.Button>
         </Modal.ButtonContainer> 
       </Modal.Container>

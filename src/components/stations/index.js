@@ -1,4 +1,5 @@
 import React, { useState, createContext, useContext } from "react";
+import { ModalContainer } from "../../containers/modal";
 import {
   GridContainer,
   RowContainer,
@@ -60,13 +61,12 @@ StationGrid.Price = function StationPrice({
   );
 };
 
-StationGrid.EditButton = function StationEditButton({
-  children,
-  ...restProps
-}) {
-  const { price, setPrice } = useContext(PriceContext);
+StationGrid.EditButton = function StationEditButton({ ...restProps }) {
+  return <EditButton {...restProps} />;
+};
 
-  return <EditButton onClick={() => setPrice((price) => price + 1)} {...restProps}>{children}</EditButton>;
+StationGrid.Modal = function StationEditModal({ ...restProps }) {
+  return <ModalContainer {...restProps} />;
 };
 
 export default StationGrid;

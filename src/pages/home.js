@@ -9,6 +9,6 @@ const Home = () => {
       <StationsContainer />
     </>
   );
-}
+};
 
 export default Home;

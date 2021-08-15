@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import StationGrid from "../components/stations/index";
 import stationsData from "../fixtures/stations.json";
 
 export const StationsContainer = () => {
+  const [displayModal, setDisplayModal] = useState(false);
+
+  const toggleModalHandler = () =>
+    setDisplayModal((displayModal) => !displayModal);
+
+  // const closeModalHandler = () => 
+  //   setDisplayModal((displayModal) => !displayModal);
 
   return (
     <StationGrid>
@@ -22,14 +29,26 @@ export const StationsContainer = () => {
               <StationGrid.EditButton
                 src={"images/icons/edit.png"}
                 alt="edit-button"
-              />
+                onClick={() => toggleModalHandler()}
+              ></StationGrid.EditButton>
+              {displayModal ? (
+                <StationGrid.Modal fuelPrice={item.petrol} close={toggleModalHandler} />
+              ) : (
+                <></>
+              )}
             </StationGrid.PriceRow>
             <StationGrid.PriceRow fuelPrice={item.diesel}>
               <StationGrid.Price>Diesel: </StationGrid.Price>
               <StationGrid.EditButton
                 src={"images/icons/edit.png"}
                 alt="edit-button"
+                onClick={() => toggleModalHandler()}
               />
+              {displayModal ? (
+                <StationGrid.Modal fuelPrice={item.diesel} close={toggleModalHandler} />
+              ) : (
+                <></>
+              )}
             </StationGrid.PriceRow>
           </StationGrid.PriceBox>
         </StationGrid.StationRow>

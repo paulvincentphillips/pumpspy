@@ -18,24 +18,25 @@ export const RowContainer = styled.div`
   border-left: 2px solid black;
 
   :last-child {
-      border-bottom: 2px solid black;
+    border-bottom: 2px solid black;
   }
 `;
 
 export const Logo = styled.img`
   height: auto;
   width: 100px;
-  margin-right: 10px;
 `;
 
 export const InfoContainer = styled.div`
+  height: 140px;
   width: 350px;
   border-left: 2px solid black;
   border-right: 2px solid black;
 `;
 
 export const StationInfo = styled.p`
-margin-left: 10px;`;
+  margin-left: 10px;
+`;
 
 export const PriceBox = styled.div``;
 
@@ -48,7 +49,7 @@ export const Price = styled.p`
   width: 95px;
 `;
 
-export const EditButton = styled.button`
+export const EditButton = styled.img`
   display: inline-block
   height: auto;
   width: 18px;

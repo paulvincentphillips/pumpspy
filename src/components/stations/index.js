@@ -65,8 +65,10 @@ StationGrid.EditButton = function StationEditButton({ ...restProps }) {
   return <EditButton {...restProps} />;
 };
 
-StationGrid.Modal = function StationEditModal({ ...restProps }) {
-  return <ModalContainer {...restProps} />;
+StationGrid.Modal = function StationEditModal({ close, ...restProps }) {
+  const { price } = useContext(PriceContext);
+
+  return <ModalContainer price={price} close={close} {...restProps} />;
 };
 
 export default StationGrid;

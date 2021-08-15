@@ -8,9 +8,6 @@ export const StationsContainer = () => {
   const toggleModalHandler = () =>
     setDisplayModal((displayModal) => !displayModal);
 
-  // const closeModalHandler = () => 
-  //   setDisplayModal((displayModal) => !displayModal);
-
   return (
     <StationGrid>
       {stationsData.map((item) => (
@@ -32,7 +29,7 @@ export const StationsContainer = () => {
                 onClick={() => toggleModalHandler()}
               ></StationGrid.EditButton>
               {displayModal ? (
-                <StationGrid.Modal fuelPrice={item.petrol} close={toggleModalHandler} />
+                <StationGrid.Modal close={toggleModalHandler} />
               ) : (
                 <></>
               )}
@@ -45,7 +42,7 @@ export const StationsContainer = () => {
                 onClick={() => toggleModalHandler()}
               />
               {displayModal ? (
-                <StationGrid.Modal fuelPrice={item.diesel} close={toggleModalHandler} />
+                <StationGrid.Modal close={toggleModalHandler} />
               ) : (
                 <></>
               )}

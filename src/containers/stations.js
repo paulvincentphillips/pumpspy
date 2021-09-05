@@ -1,16 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import StationGrid from "../components/stations/index";
 import stationsData from "../fixtures/stations.json";
 
 export const StationsContainer = () => {
-  const [displayModal, setDisplayModal] = useState(false);
+  const [stations, setStations] = useState([]);
 
-  const toggleModalHandler = () =>
-    setDisplayModal((displayModal) => !displayModal);
+  useEffect(() => {
+    stationsData.map((station) =>
+      setStations((stations) => [...stations, station])
+    );
+  }, []);
 
   return (
     <StationGrid>
-      {stationsData.map((item) => (
+      {stations.map((item) => (
         <StationGrid.StationRow key={item.id}>
           <StationGrid.Logo src={item.logo} alt={item.alt} />
           <StationGrid.InfoBox>
@@ -21,31 +24,25 @@ export const StationsContainer = () => {
             </StationGrid.StationInfo>
           </StationGrid.InfoBox>
           <StationGrid.PriceBox>
-            <StationGrid.PriceRow fuelPrice={item.petrol}>
-              <StationGrid.Price>Petrol: </StationGrid.Price>
+            <StationGrid.PriceRow>
+              <StationGrid.Price fuelPrice={item.petrol}>
+                Petrol:{" "}
+              </StationGrid.Price>
               <StationGrid.EditButton
                 src={"images/icons/edit.png"}
                 alt="edit-button"
-                onClick={() => toggleModalHandler()}
-              ></StationGrid.EditButton>
-              {displayModal ? (
-                <StationGrid.Modal close={toggleModalHandler} />
-              ) : (
-                <></>
-              )}
-            </StationGrid.PriceRow>
-            <StationGrid.PriceRow fuelPrice={item.diesel}>
-              <StationGrid.Price>Diesel: </StationGrid.Price>
-              <StationGrid.EditButton
-                src={"images/icons/edit.png"}
-                alt="edit-button"
-                onClick={() => toggleModalHandler()}
               />
-              {displayModal ? (
-                <StationGrid.Modal close={toggleModalHandler} />
-              ) : (
-                <></>
-              )}
+              <StationGrid.Modal price={item.petrol} />
+            </StationGrid.PriceRow>
+            <StationGrid.PriceRow>
+              <StationGrid.Price fuelPrice={item.diesel}>
+                Diesel:{" "}
+              </StationGrid.Price>
+              <StationGrid.EditButton
+                src={"images/icons/edit.png"}
+                alt="edit-button"
+              />
+              <StationGrid.Modal price={item.diesel} />
             </StationGrid.PriceRow>
           </StationGrid.PriceBox>
         </StationGrid.StationRow>

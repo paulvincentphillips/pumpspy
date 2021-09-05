@@ -1,4 +1,4 @@
-import React, { useState, createContext, useContext } from "react";
+import React, { useState } from "react";
 import { ModalContainer } from "../../containers/modal";
 import {
   GridContainer,
@@ -12,7 +12,8 @@ import {
   EditButton,
 } from "./styles/stations";
 
-const PriceContext = createContext();
+const DisplayModalContext = React.createContext();
+export const ToggleModalConext = React.createContext();
 
 const StationGrid = ({ ...restProps }) => {
   return <GridContainer {...restProps} />;
@@ -38,12 +39,19 @@ StationGrid.PriceBox = ({ children, ...restProps }) => {
   return <PriceBox {...restProps}>{children}</PriceBox>;
 };
 
-StationGrid.PriceRow = function StationPriceRow({ fuelPrice, ...restProps }) {
-  const [price, setPrice] = useState(fuelPrice);
+StationGrid.PriceRow = function StationPriceRow({ ...restProps }) {
+  const [displayModal, setDisplayModal] = useState(false);
+
+  const toggleModalHandler = () => {
+    setDisplayModal((displayModal) => !displayModal);
+  };
+
   return (
-    <PriceContext.Provider value={{ price, setPrice }}>
+    <DisplayModalContext.Provider value={displayModal}>
+      <ToggleModalConext.Provider value={toggleModalHandler}>
       <PriceRowContainer {...restProps} />
-    </PriceContext.Provider>
+      </ToggleModalConext.Provider>
+    </DisplayModalContext.Provider>
   );
 };
 
@@ -52,23 +60,31 @@ StationGrid.Price = function StationPrice({
   children,
   ...restProps
 }) {
-  const { price } = useContext(PriceContext);
-
   return (
     <Price {...restProps}>
-      {children} {price}
+      {children} {fuelPrice}
     </Price>
   );
 };
 
 StationGrid.EditButton = function StationEditButton({ ...restProps }) {
-  return <EditButton {...restProps} />;
+  return (
+    <ToggleModalConext.Consumer>
+      {(toggleModalHandler) => {
+        return <EditButton onClick={() => toggleModalHandler()} {...restProps} />;
+      }}
+    </ToggleModalConext.Consumer>
+  );
 };
 
-StationGrid.Modal = function StationEditModal({ close, ...restProps }) {
-  const { price } = useContext(PriceContext);
-
-  return <ModalContainer price={price} close={close} {...restProps} />;
+StationGrid.Modal = function StationEditModal({ ...restProps }) {
+  return (
+    <DisplayModalContext.Consumer>
+      {(displayModal) => {
+        return displayModal ? <ModalContainer {...restProps} /> : <></>;
+      }}
+    </DisplayModalContext.Consumer>
+  );
 };
 
 export default StationGrid;

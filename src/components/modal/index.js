@@ -21,8 +21,8 @@ Modal.PriceTextBox = function ModalPriceTextBox({fuelPrice, children, ...restPro
     return <TextBox value={fuelPrice}>{children}</TextBox>
 }
 
-Modal.Button = function ModalButton({close, children, ...restProps}){
-    return <Button onClick={close}>{children}</Button>
+Modal.Button = function ModalButton({toggleModalHandler, children, ...restProps}){
+    return <Button onClick={() => toggleModalHandler()}>{children}</Button>
 }
 
 export default Modal;

@@ -11,6 +11,13 @@ export const StationsContainer = () => {
     );
   }, []);
 
+  const updatePrice = (id, fuelType, price) => {
+    let updatedStations = stations.map((station) =>
+      station.id === id ? ({ ...station, [fuelType]: price }) : station
+    );
+    setStations(updatedStations);
+  };
+
   return (
     <StationGrid>
       {stations.map((item) => (
@@ -32,7 +39,12 @@ export const StationsContainer = () => {
                 src={"images/icons/edit.png"}
                 alt="edit-button"
               />
-              <StationGrid.Modal price={item.petrol} />
+              <StationGrid.Modal
+                id={item.id}
+                price={item.petrol}
+                fuelType={"petrol"}
+                updatePrice={updatePrice}
+              />
             </StationGrid.PriceRow>
             <StationGrid.PriceRow>
               <StationGrid.Price fuelPrice={item.diesel}>
@@ -42,7 +54,12 @@ export const StationsContainer = () => {
                 src={"images/icons/edit.png"}
                 alt="edit-button"
               />
-              <StationGrid.Modal price={item.diesel} />
+              <StationGrid.Modal
+                id={item.id}
+                price={item.diesel}
+                fuelType={"diesel"}
+                updatePrice={updatePrice}
+              />
             </StationGrid.PriceRow>
           </StationGrid.PriceBox>
         </StationGrid.StationRow>

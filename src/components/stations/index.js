@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, createContext, useContext } from "react";
 import { ModalContainer } from "../../containers/modal";
 import {
   GridContainer,
@@ -12,8 +12,8 @@ import {
   EditButton,
 } from "./styles/stations";
 
-const DisplayModalContext = React.createContext();
-export const ToggleModalConext = React.createContext();
+const DisplayModalContext = createContext();
+export const ToggleModalConext = createContext();
 
 const StationGrid = ({ ...restProps }) => {
   return <GridContainer {...restProps} />;
@@ -49,7 +49,7 @@ StationGrid.PriceRow = function StationPriceRow({ ...restProps }) {
   return (
     <DisplayModalContext.Provider value={displayModal}>
       <ToggleModalConext.Provider value={toggleModalHandler}>
-      <PriceRowContainer {...restProps} />
+        <PriceRowContainer {...restProps} />
       </ToggleModalConext.Provider>
     </DisplayModalContext.Provider>
   );
@@ -68,23 +68,13 @@ StationGrid.Price = function StationPrice({
 };
 
 StationGrid.EditButton = function StationEditButton({ ...restProps }) {
-  return (
-    <ToggleModalConext.Consumer>
-      {(toggleModalHandler) => {
-        return <EditButton onClick={() => toggleModalHandler()} {...restProps} />;
-      }}
-    </ToggleModalConext.Consumer>
-  );
+  const toggleModalHandler = useContext(ToggleModalConext);
+  return <EditButton onClick={() => toggleModalHandler()} {...restProps} />;
 };
 
 StationGrid.Modal = function StationEditModal({ ...restProps }) {
-  return (
-    <DisplayModalContext.Consumer>
-      {(displayModal) => {
-        return displayModal ? <ModalContainer {...restProps} /> : <></>;
-      }}
-    </DisplayModalContext.Consumer>
-  );
+  const displayModal = useContext(DisplayModalContext);
+  return displayModal ? <ModalContainer {...restProps} /> : <></>;
 };
 
 export default StationGrid;

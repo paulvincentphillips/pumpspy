@@ -1,28 +1,94 @@
-import React from 'react';
-import { Background, Container, Title, ButtonContainer, TextBox, Button } from "./styles/modal";
+import React, { useState, useEffect, createContext, useContext } from "react";
+import {
+  Background,
+  Container,
+  Title,
+  TextBox,
+  ButtonContainer,
+  ConfirmButton,
+  CancelButton,
+} from "./styles/modal";
 
-const Modal = function({children, ...restProps}){
-    return <Background {...restProps}>{children}</Background>
-}
+const PriceContext = createContext();
 
-Modal.Container = function ModalContainer({children, ...restProps}){
-    return <Container>{children}</Container>
-}
+const Modal = function ({ children, ...restProps }) {
+  return <Background {...restProps}>{children}</Background>;
+};
 
-Modal.Title = function ModalTitle({children, ...restProps}){
-    return <Title>{children}</Title>
-}
+Modal.Container = function ModalContainer({ fuelPrice, children }) {
+  const [price, setPrice] = useState();
 
-Modal.ButtonContainer = function ModalButtonContainer({children, ...restProps}){
-    return <ButtonContainer>{children}</ButtonContainer>
-}
+  useEffect(() => {
+    setPrice(fuelPrice);
+  }, [fuelPrice]);
 
-Modal.PriceTextBox = function ModalPriceTextBox({fuelPrice, children, ...restProps}){
-    return <TextBox value={fuelPrice}>{children}</TextBox>
-}
+  const setPriceHandler = (updatedPrice) => {
+    setPrice(updatedPrice);
+  };
 
-Modal.Button = function ModalButton({toggleModalHandler, children, ...restProps}){
-    return <Button onClick={() => toggleModalHandler()}>{children}</Button>
-}
+  return (
+    <PriceContext.Provider value={{ price, setPriceHandler }}>
+      <Container>{children}</Container>
+    </PriceContext.Provider>
+  );
+};
+
+Modal.Title = function ModalTitle({ children }) {
+  return <Title>{children}</Title>;
+};
+
+Modal.PriceTextBox = function ModalPriceTextBox({ children }) {
+  const { price, setPriceHandler } = useContext(PriceContext);
+  return (
+    <TextBox
+      defaultValue={price}
+      maxLength="5"
+      type="number"
+      step={"0.1"}
+      onChange={(e) => setPriceHandler(e.target.value)}
+    >
+      {children}
+    </TextBox>
+  );
+};
+
+Modal.ButtonContainer = function ModalButtonContainer({ children }) {
+  return <ButtonContainer>{children}</ButtonContainer>;
+};
+
+Modal.ConfirmButton = function ModalConfirmButton({
+  toggleModalHandler,
+  updatePrice,
+  fuelType,
+  id,
+  children
+}) {
+  const { price } = useContext(PriceContext);
+  return (
+    <ConfirmButton
+      onClick={() => {
+        toggleModalHandler();
+        updatePrice(id, fuelType, price);
+      }}
+    >
+      {children}
+    </ConfirmButton>
+  );
+};
+
+Modal.CancelButton = function ModalCancelButton({
+  toggleModalHandler,
+  children
+}) {
+  return (
+    <CancelButton
+      onClick={() => {
+        toggleModalHandler();
+      }}
+    >
+      {children}
+    </CancelButton>
+  );
+};
 
 export default Modal;

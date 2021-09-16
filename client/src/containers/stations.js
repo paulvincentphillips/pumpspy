@@ -1,28 +1,47 @@
 import React, { useState, useEffect } from "react";
 import StationGrid from "../components/stations/index";
-import stationsData from "../fixtures/stations.json";
 
 export const StationsContainer = () => {
   const [stations, setStations] = useState([]);
 
-  useEffect(() => {
-    stationsData.map((station) =>
-      setStations((stations) => [...stations, station])
-    );
-  }, []);
+  const getStations = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/stations");
+      const jsonData = await response.json();
 
-  const updatePrice = (id, fuelType, price) => {
-    let updatedStations = stations.map((station) =>
-      station.id === id ? ({ ...station, [fuelType]: price }) : station
-    );
-    setStations(updatedStations);
+      setStations(jsonData);
+    } catch (error) {
+      console.error(error.message);
+    }
   };
+
+  const updatePrice = async (id, fuelType, price) => {
+    try {
+      const body = { price };
+      await fetch(`http://localhost:5000/stations/${fuelType}/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+
+      window.location = "/";
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  useEffect(() => {
+    getStations();
+  }, []);
 
   return (
     <StationGrid>
       {stations.map((item) => (
-        <StationGrid.StationRow key={item.id}>
-          <StationGrid.Logo src={item.logo} alt={item.alt} />
+        <StationGrid.StationRow key={item.station_id}>
+          <StationGrid.Logo
+            src={`images/logos/${item.brand.toLowerCase()}.png`}
+            alt={item.alt}
+          />
           <StationGrid.InfoBox>
             <StationGrid.StationInfo>{item.name}</StationGrid.StationInfo>
             <StationGrid.StationInfo>{item.address}</StationGrid.StationInfo>
@@ -40,7 +59,7 @@ export const StationsContainer = () => {
                 alt="edit-button"
               />
               <StationGrid.Modal
-                id={item.id}
+                id={item.station_id}
                 price={item.petrol}
                 fuelType={"petrol"}
                 updatePrice={updatePrice}
@@ -55,7 +74,7 @@ export const StationsContainer = () => {
                 alt="edit-button"
               />
               <StationGrid.Modal
-                id={item.id}
+                id={item.station_id}
                 price={item.diesel}
                 fuelType={"diesel"}
                 updatePrice={updatePrice}

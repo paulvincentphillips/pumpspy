@@ -25,6 +25,7 @@ export const RowContainer = styled.div`
 export const Logo = styled.img`
   height: auto;
   width: 100px;
+  margin-right: 11px;
 `;
 
 export const InfoContainer = styled.div`

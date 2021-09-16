@@ -12,7 +12,8 @@ import {
   EditButton,
 } from "./styles/stations";
 
-const PriceContext = createContext();
+const DisplayModalContext = createContext();
+export const ToggleModalConext = createContext();
 
 const StationGrid = ({ ...restProps }) => {
   return <GridContainer {...restProps} />;
@@ -38,12 +39,19 @@ StationGrid.PriceBox = ({ children, ...restProps }) => {
   return <PriceBox {...restProps}>{children}</PriceBox>;
 };
 
-StationGrid.PriceRow = function StationPriceRow({ fuelPrice, ...restProps }) {
-  const [price, setPrice] = useState(fuelPrice);
+StationGrid.PriceRow = function StationPriceRow({ ...restProps }) {
+  const [displayModal, setDisplayModal] = useState(false);
+
+  const toggleModalHandler = () => {
+    setDisplayModal((displayModal) => !displayModal);
+  };
+
   return (
-    <PriceContext.Provider value={{ price, setPrice }}>
-      <PriceRowContainer {...restProps} />
-    </PriceContext.Provider>
+    <DisplayModalContext.Provider value={displayModal}>
+      <ToggleModalConext.Provider value={toggleModalHandler}>
+        <PriceRowContainer {...restProps} />
+      </ToggleModalConext.Provider>
+    </DisplayModalContext.Provider>
   );
 };
 
@@ -52,23 +60,21 @@ StationGrid.Price = function StationPrice({
   children,
   ...restProps
 }) {
-  const { price } = useContext(PriceContext);
-
   return (
     <Price {...restProps}>
-      {children} {price}
+      {children} {fuelPrice}
     </Price>
   );
 };
 
 StationGrid.EditButton = function StationEditButton({ ...restProps }) {
-  return <EditButton {...restProps} />;
+  const toggleModalHandler = useContext(ToggleModalConext);
+  return <EditButton onClick={() => toggleModalHandler()} {...restProps} />;
 };
 
-StationGrid.Modal = function StationEditModal({ close, ...restProps }) {
-  const { price } = useContext(PriceContext);
-
-  return <ModalContainer price={price} close={close} {...restProps} />;
+StationGrid.Modal = function StationEditModal({ ...restProps }) {
+  const displayModal = useContext(DisplayModalContext);
+  return displayModal ? <ModalContainer {...restProps} /> : <></>;
 };
 
 export default StationGrid;

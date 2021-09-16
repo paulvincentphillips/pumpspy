@@ -7,14 +7,14 @@ export const Background = styled.div`
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.2);
-  z-index: 0; 
+  z-index: 0;
 `;
 
 export const Container = styled.div`
   position: fixed;
   background: #6e7269;
-  width: 55%;
-  height: auto;
+  width: 25%;
+  height: 25%;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -25,13 +25,15 @@ export const Container = styled.div`
 `;
 
 export const Title = styled.h2`
-
+  padding-top: 1em;
 `;
 
-export const TextBox = styled.textarea`
-  width: 250px;
+export const TextBox = styled.input`
+  width: 170px;
   resize: none;
   margin-bottom: 20px;
+  text-align: center;
+  font-size: 3em;
 `;
 
 export const ButtonContainer = styled.div`
@@ -41,8 +43,7 @@ export const ButtonContainer = styled.div`
   margin-bottom: 20px;
 `;
 
-export const Button = styled.div`
-  background-color: #4cce59;
+export const ConfirmButton = styled.div`
   color: #ffffff;
   text-align: center;
   width: 110px;
@@ -53,9 +54,29 @@ export const Button = styled.div`
   padding: 8px 17px;
   cursor: pointer;
   text-decoration: none;
+  margin-right: 0.8em;
+  background-color: #4cce59;
 
   &:hover {
     background: #3aa345;
   }
 `;
 
+export const CancelButton = styled.div`
+  color: #ffffff;
+  text-align: center;
+  width: 110px;
+  height: fit-content;
+  border: 0;
+  font-size: 15px;
+  border-radius: 3px;
+  padding: 8px 17px;
+  cursor: pointer;
+  text-decoration: none;
+  margin-left: 0.8em;
+  background-color: #ef0707;
+
+  &:hover {
+    background: #d10606;
+  }
+`;

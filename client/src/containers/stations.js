@@ -15,7 +15,16 @@ export const StationsContainer = () => {
     }
   };
 
-  const updatePrice = async (id, fuelType, price) => {
+  const updatePrice = (id, fuelType, price) => {
+    console.log(price);
+    let updatedStations = stations.map((station) =>
+      station.station_id === id ? { ...station, [fuelType]: price } : station
+    );
+    setStations(updatedStations);
+    updateDatabasePrice(id, fuelType, price);
+  };
+
+  const updateDatabasePrice = async (id, fuelType, price) => {
     try {
       const body = { price };
       await fetch(`http://localhost:5000/stations/${fuelType}/${id}`, {
@@ -23,8 +32,6 @@ export const StationsContainer = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
-
-      window.location = "/";
     } catch (error) {
       console.error(error.message);
     }

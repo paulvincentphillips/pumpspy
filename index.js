@@ -2,11 +2,21 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const pool = require("./db");
-const port = 5000;
+const path = require("path");
+const PORT = process.env.PORT || 5000;
+
+//provess.env.PORT
+//provess.env.NORDE_ENV => production or undefined
 
 //middleware
 app.use(cors());
 app.use(express.json());
+
+if (process.env.NODE_ENV === "production") {
+  //server static content
+  //npm run build
+  app.use(express.static(path.join(__dirname, "client/build")));
+}
 
 //ROUTES//
 
@@ -15,7 +25,7 @@ app.get("/stations", async (req, res) => {
   try {
     const allStations = await pool.query("SELECT * FROM stations");
     res.json(allStations.rows);
-  } catch(error) {
+  } catch (error) {
     console.error(error.message);
   }
 });
@@ -30,7 +40,7 @@ app.put("/stations/petrol/:id", async (req, res) => {
       [price, id]
     );
     res.json("Station's Petrol price has been updated!");
-  } catch(error) {
+  } catch (error) {
     console.error(error.message);
   }
 });
@@ -45,11 +55,15 @@ app.put("/stations/diesel/:id", async (req, res) => {
       [price, id]
     );
     res.json("Station's Diesel price has been updated!");
-  } catch(error) {
+  } catch (error) {
     console.error(error.message);
   }
 });
 
-app.listen(port, () => {
-  console.log(`server has started on port ${port}`);
+app.get("*", (req,res) => {
+  res.sendFile(path.join(__dirname, "client/build.index.html"));
+})
+
+app.listen(PORT, () => {
+  console.log(`server has started on port ${PORT}`);
 });

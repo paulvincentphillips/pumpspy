@@ -6,7 +6,7 @@ export const StationsContainer = () => {
 
   const getStations = async () => {
     try {
-      const response = await fetch("http://localhost:5000/stations");
+      const response = await fetch("/stations");
       const jsonData = await response.json();
 
       setStations(jsonData);
@@ -27,7 +27,7 @@ export const StationsContainer = () => {
   const updateDatabasePrice = async (id, fuelType, price) => {
     try {
       const body = { price };
-      await fetch(`http://localhost:5000/stations/${fuelType}/${id}`, {
+      await fetch(`/stations/${fuelType}/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),

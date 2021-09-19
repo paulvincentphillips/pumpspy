@@ -12,11 +12,13 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-if (process.env.NODE_ENV === "production") {
-  //server static content
-  //npm run build
-  app.use(express.static(path.join(__dirname, "client/build")));
-}
+app.use(express.static(path.join(__dirname, "client/build")));
+
+// if (process.env.NODE_ENV === "production") {
+//   //server static content
+//   //npm run build
+//   app.use(express.static(path.join(__dirname, "client/build")));
+// }
 
 //ROUTES//
 
@@ -36,7 +38,7 @@ app.put("/stations/petrol/:id", async (req, res) => {
     const { id } = req.params;
     const { price } = req.body;
     await pool.query(
-      "UPDATE stations SET updated = CURRENT_TIMESTAMP WHERE station_id = $2",
+      "UPDATE stations SET petrol = $1, updated = CURRENT_TIMESTAMP WHERE station_id = $2",
       [price, id]
     );
     res.json("Station's Petrol price has been updated!");

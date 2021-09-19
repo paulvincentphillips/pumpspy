@@ -36,7 +36,7 @@ app.put("/stations/petrol/:id", async (req, res) => {
     const { id } = req.params;
     const { price } = req.body;
     await pool.query(
-      "UPDATE stations SET petrol = $1, updated = CURRENT_TIMESTAMP WHERE station_id = $2",
+      "UPDATE stations SET updated = CURRENT_TIMESTAMP WHERE station_id = $2",
       [price, id]
     );
     res.json("Station's Petrol price has been updated!");

@@ -1,4 +1,4 @@
-CREATE DATABASE pumpspy;
+-- CREATE DATABASE pumpspy;
 
 CREATE TABLE stations(
     station_id SERIAL PRIMARY KEY,

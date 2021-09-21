@@ -5,9 +5,6 @@ const pool = require("./db");
 const path = require("path");
 const PORT = process.env.PORT || 5000;
 
-//provess.env.PORT
-//provess.env.NORDE_ENV => production or undefined
-
 //middleware
 app.use(cors());
 app.use(express.json());
@@ -19,6 +16,8 @@ if (process.env.NODE_ENV === "production") {
 }
 
 //ROUTES//
+
+//stations table routes
 
 //get all stations
 app.get("/stations", async (req, res) => {
@@ -60,9 +59,14 @@ app.put("/stations/diesel/:id", async (req, res) => {
   }
 });
 
-app.get("*", (req,res) => {
+//register and login routes
+
+app.use("/auth", require("./routes/auth"));
+
+
+app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "client/build.index.html"));
-})
+});
 
 app.listen(PORT, () => {
   console.log(`server has started on port ${PORT}`);

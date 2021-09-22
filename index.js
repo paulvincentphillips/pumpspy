@@ -22,49 +22,18 @@ app.use(express.static(path.join(__dirname, "client/build")));
 
 //ROUTES//
 
-//get all stations
-app.get("/stations", async (req, res) => {
-  try {
-    const allStations = await pool.query("SELECT * FROM stations");
-    res.json(allStations.rows);
-  } catch (error) {
-    console.error(error.message);
-  }
-});
+//stations routes
+app.use("/stations", require("./routes/stations"));
 
-//update a station's petrol price
-app.put("/stations/petrol/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { price } = req.body;
-    await pool.query(
-      "UPDATE stations SET petrol = $1, updated = CURRENT_TIMESTAMP WHERE station_id = $2",
-      [price, id]
-    );
-    res.json("Station's Petrol price has been updated!");
-  } catch (error) {
-    console.error(error.message);
-  }
-});
+//register and login routes
+app.use("/auth", require("./routes/auth"));
 
-//update a station's diesel price
-app.put("/stations/diesel/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { price } = req.body;
-    await pool.query(
-      "UPDATE stations SET diesel = $1, updated = CURRENT_TIMESTAMP WHERE station_id = $2",
-      [price, id]
-    );
-    res.json("Station's Diesel price has been updated!");
-  } catch (error) {
-    console.error(error.message);
-  }
-});
+//dashboard route
+app.use("/dashboard", require("./routes/dashboard"));
 
-app.get("*", (req,res) => {
+app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "client/build.index.html"));
-})
+});
 
 app.listen(PORT, () => {
   console.log(`server has started on port ${PORT}`);

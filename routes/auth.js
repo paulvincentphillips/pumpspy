@@ -1,9 +1,10 @@
-const router = require("express").Router();
-const { pool } = require("pg");
+const express = require("express");
+const router = express.Router();
 const pool = require("../db");
 const bcrypt = require("bcrypt");
 const jwtGenerator = require("../utils/jwtGenerator");
 const validInfo = require("../middleware/validInfo");
+const authorization = require("../middleware/authorization");
 
 //register route
 router.post("/register", validInfo, async (res, req) => {
@@ -53,12 +54,22 @@ router.post("/login", validInfo, async (req, res) => {
     const validPassword = bcrypt.compare(password, user.rows[0].user_password);
 
     if (!validPassowrd) {
-      return res.status(401).json("Passowrd is incorrect");
+      return res.status(401).json("Password is incorrect");
     }
 
     const token = jwtGenerator(newUser.rows[0].user_id);
 
     res.json({ token });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Server Error");
+  }
+});
+
+//is verified route
+router.get("/is-verified", authorization, async (req, res) => {
+  try {
+    res.json(true);
   } catch (error) {
     console.error(error.message);
     res.status(500).send("Server Error");

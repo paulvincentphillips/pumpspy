@@ -16,7 +16,6 @@ export const StationsContainer = () => {
   };
 
   const updatePrice = (id, fuelType, price) => {
-    console.log(price);
     let updatedStations = stations.map((station) =>
       station.station_id === id ? { ...station, [fuelType]: price } : station
     );
@@ -37,6 +36,11 @@ export const StationsContainer = () => {
     }
   };
 
+  const formatDate = (date) => {
+    date = date.replace(/T.*/, "");
+    return date.split("-").reverse().join("-");
+  };
+
   useEffect(() => {
     getStations();
   }, []);
@@ -53,7 +57,7 @@ export const StationsContainer = () => {
             <StationGrid.StationInfo>{item.name}</StationGrid.StationInfo>
             <StationGrid.StationInfo>{item.address}</StationGrid.StationInfo>
             <StationGrid.StationInfo>
-              Last Updated: {item.updated}
+              Last Updated: {formatDate(item.updated)}
             </StationGrid.StationInfo>
           </StationGrid.InfoBox>
           <StationGrid.PriceBox>

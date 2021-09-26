@@ -10,7 +10,7 @@ export const HeaderContainer = ({setAuth, isAuthenticated}) => {
     try {
       localStorage.removeItem("token");
       setAuth(false);
-      toast.success("Logout successfully");
+      toast.success("You have successfully logged out!");
     } catch (err) {
       console.error(err.message);
     }

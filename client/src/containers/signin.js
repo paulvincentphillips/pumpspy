@@ -32,7 +32,7 @@ export const SigninContainer = ({ setAuth }) => {
         localStorage.setItem("token", parseRes.token);
 
         setAuth(true);
-        toast.success("login successfully!");
+        toast.success("You have successfully logged in!");
       }else{
         setAuth(false);
         toast.error(parseRes);

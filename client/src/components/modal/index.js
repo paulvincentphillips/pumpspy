@@ -8,6 +8,7 @@ import {
   ConfirmButton,
   CancelButton,
 } from "./styles/modal";
+import { toast } from "react-toastify";
 
 const PriceContext = createContext();
 
@@ -16,23 +17,23 @@ const Modal = function ({ children, ...restProps }) {
 };
 
 Modal.Container = function ModalContainer({ fuelPrice, children }) {
-  const [price, setPrice] = useState();
+  const [initalPrice, setInitalPrice] = useState();
   const [updatedPrice, setUpdatedPrice] = useState();
   const regExp = /\d{3}\.\d{1}/;
 
   useEffect(() => {
-    setPrice(fuelPrice);
+    setInitalPrice(fuelPrice);
     setUpdatedPrice(fuelPrice);
   }, [fuelPrice]);
 
   const setPriceHandler = (inputPrice) => {
-    if (regExp.test(inputPrice)) {
-      setPrice(inputPrice);
-    }
+    setUpdatedPrice(inputPrice);
   };
 
   return (
-    <PriceContext.Provider value={{ price, setPriceHandler, updatedPrice }}>
+    <PriceContext.Provider
+      value={{ initalPrice, setPriceHandler, updatedPrice }}
+    >
       <Container>{children}</Container>
     </PriceContext.Provider>
   );
@@ -43,7 +44,7 @@ Modal.Title = function ModalTitle({ children }) {
 };
 
 Modal.PriceTextBox = function ModalPriceTextBox({ children }) {
-  const { price, setPriceHandler } = useContext(PriceContext);
+  const { setPriceHandler, updatedPrice } = useContext(PriceContext);
   const formatPrice = (price) => {
     price = price + "";
     if (price.indexOf(".") === -1) {
@@ -53,7 +54,7 @@ Modal.PriceTextBox = function ModalPriceTextBox({ children }) {
   };
   return (
     <TextBox
-      value={formatPrice(price)}
+      value={formatPrice(updatedPrice)}
       maxLength="5"
       type="text"
       allowNegative={false}
@@ -78,14 +79,20 @@ Modal.ConfirmButton = function ModalConfirmButton({
   id,
   children,
 }) {
-  const { price, updatedPrice } = useContext(PriceContext);
+  const { initalPrice, updatedPrice } = useContext(PriceContext);
   const regExp = /\d{3}\.\d{1}/;
   return (
     <ConfirmButton
       onClick={() => {
-        if (regExp.test(price) && updatedPrice !== price) {
+        if (regExp.test(updatedPrice) && updatedPrice !== initalPrice) {
           toggleModalHandler();
-          updatePrice(id, fuelType, price);
+          updatePrice(id, fuelType, updatedPrice);
+        }
+        if (regExp.test(updatedPrice) === false) {
+          toast.error("Invalid price format!");
+        }
+        if (updatedPrice === initalPrice) {
+          toast.warn("You have not edited the price!");
         }
       }}
     >

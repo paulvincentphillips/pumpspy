@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import * as ROUTES from "./constants/routes";
 import { Home, Signin, Signup } from "./pages";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {

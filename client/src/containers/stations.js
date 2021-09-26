@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import StationGrid from "../components/stations/index";
 
-export const StationsContainer = () => {
+export const StationsContainer = ({isAuthenticated}) => {
   const [stations, setStations] = useState([]);
 
   const getStations = async () => {
@@ -68,6 +68,7 @@ export const StationsContainer = () => {
               <StationGrid.EditButton
                 src={"images/icons/edit.png"}
                 alt="edit-button"
+                isAuthenticated={isAuthenticated}
               />
               <StationGrid.Modal
                 id={item.station_id}
@@ -83,6 +84,7 @@ export const StationsContainer = () => {
               <StationGrid.EditButton
                 src={"images/icons/edit.png"}
                 alt="edit-button"
+                isAuthenticated={isAuthenticated}
               />
               <StationGrid.Modal
                 id={item.station_id}

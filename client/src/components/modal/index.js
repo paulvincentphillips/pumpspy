@@ -17,17 +17,22 @@ const Modal = function ({ children, ...restProps }) {
 
 Modal.Container = function ModalContainer({ fuelPrice, children }) {
   const [price, setPrice] = useState();
+  const [updatedPrice, setUpdatedPrice] = useState();
+  const regExp = /\d{3}\.\d{1}/;
 
   useEffect(() => {
     setPrice(fuelPrice);
+    setUpdatedPrice(fuelPrice);
   }, [fuelPrice]);
 
-  const setPriceHandler = (updatedPrice) => {
-    setPrice(updatedPrice);
+  const setPriceHandler = (inputPrice) => {
+    if (regExp.test(inputPrice)) {
+      setPrice(inputPrice);
+    }
   };
 
   return (
-    <PriceContext.Provider value={{ price, setPriceHandler }}>
+    <PriceContext.Provider value={{ price, setPriceHandler, updatedPrice }}>
       <Container>{children}</Container>
     </PriceContext.Provider>
   );
@@ -39,13 +44,23 @@ Modal.Title = function ModalTitle({ children }) {
 
 Modal.PriceTextBox = function ModalPriceTextBox({ children }) {
   const { price, setPriceHandler } = useContext(PriceContext);
+  const formatPrice = (price) => {
+    price = price + "";
+    if (price.indexOf(".") === -1) {
+      return price + ".0";
+    }
+    return price;
+  };
   return (
     <TextBox
-      defaultValue={price}
+      value={formatPrice(price)}
       maxLength="5"
-      type="number"
-      step={"0.1"}
-      onChange={(e) => setPriceHandler(e.target.value)}
+      type="text"
+      allowNegative={false}
+      decimalScale={1}
+      onChange={(e) => {
+        setPriceHandler(e.target.value);
+      }}
     >
       {children}
     </TextBox>
@@ -61,14 +76,17 @@ Modal.ConfirmButton = function ModalConfirmButton({
   updatePrice,
   fuelType,
   id,
-  children
+  children,
 }) {
-  const { price } = useContext(PriceContext);
+  const { price, updatedPrice } = useContext(PriceContext);
+  const regExp = /\d{3}\.\d{1}/;
   return (
     <ConfirmButton
       onClick={() => {
-        toggleModalHandler();
-        updatePrice(id, fuelType, price);
+        if (regExp.test(price) && updatedPrice !== price) {
+          toggleModalHandler();
+          updatePrice(id, fuelType, price);
+        }
       }}
     >
       {children}
@@ -78,7 +96,7 @@ Modal.ConfirmButton = function ModalConfirmButton({
 
 Modal.CancelButton = function ModalCancelButton({
   toggleModalHandler,
-  children
+  children,
 }) {
   return (
     <CancelButton

@@ -17,12 +17,12 @@ Auth.Title = ({ children, ...restProps }) => {
   return <Title {...restProps}>{children}</Title>;
 };
 
-Auth.Form = ({ children, ...restProps }) => {
-  return <Form {...restProps}>{children}</Form>;
+Auth.Form = ({ onSubmitForm, children, ...restProps }) => {
+  return <Form onSubmit={onSubmitForm} {...restProps}>{children}</Form>;
 };
 
-Auth.InputField = ({ children, ...restProps }) => {
-  return <InputField {...restProps}>{children}</InputField>;
+Auth.InputField = ({ type, children, ...restProps }) => {
+  return <InputField type={type} {...restProps}>{children}</InputField>;
 };
 
 Auth.SubmitButton = ({ children, ...restProps }) => {

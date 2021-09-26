@@ -14,7 +14,7 @@ export const ModalContainer = ({
     <Modal>
       <Modal.Container fuelPrice={price}>
         <Modal.Title>Edit Price {price}</Modal.Title>
-        <Modal.PriceTextBox></Modal.PriceTextBox>
+        <Modal.PriceTextBox />
         <Modal.ButtonContainer>
           <Modal.ConfirmButton
             toggleModalHandler={toggleModalHandler}

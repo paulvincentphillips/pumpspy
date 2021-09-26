@@ -28,9 +28,6 @@ app.use("/stations", require("./routes/stations"));
 //register and login routes
 app.use("/auth", require("./routes/auth"));
 
-//dashboard route
-app.use("/dashboard", require("./routes/dashboard"));
-
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "client/build.index.html"));
 });

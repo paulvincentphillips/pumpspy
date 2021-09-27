@@ -13,17 +13,27 @@ app.use(express.json());
 
 app.use(express.static(path.join(__dirname, "client/build")));
 
-var forceSsl = function (req, res, next) {
-  if (req.headers['x-forwarded-proto'] !== 'https') {
-      return res.redirect(['https://', req.get('Host'), req.url].join(''));
+const forceSsl = function (req, res, next) {
+  if (req.headers["x-forwarded-proto"] !== "https") {
+    return res.redirect(["https://", req.get("Host"), req.url].join(""));
   }
   return next();
+};
+
+const redirectNakedDomain = function (req, res, next) {
+  var host = req.header("host");
+  if (host.match(/\bwww\.pumpspy.ie\b/i)) {
+    next();
+  } else {
+    res.redirect(301, "https://www.pumpspy.ie" + req.url);
+  }
 };
 
 if (process.env.NODE_ENV === "production") {
   //server static content
   //npm run build
   app.use(express.static(path.join(__dirname, "client/build")));
+  app.use(redirectNakedDomain);
   app.use(forceSsl);
 }
 

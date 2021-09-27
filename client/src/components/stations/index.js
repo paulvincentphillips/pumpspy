@@ -11,6 +11,7 @@ import {
   Price,
   EditButton,
 } from "./styles/stations";
+import { toast } from "react-toastify";
 
 const DisplayModalContext = createContext();
 export const ToggleModalConext = createContext();
@@ -60,16 +61,33 @@ StationGrid.Price = function StationPrice({
   children,
   ...restProps
 }) {
+  const formatPrice = (fuelPrice) => {
+    fuelPrice = fuelPrice + "";
+    if (fuelPrice.indexOf(".") === -1) {
+      return fuelPrice + ".0";
+    }
+    return fuelPrice;
+  };
   return (
     <Price {...restProps}>
-      {children} {fuelPrice}
+      {children} {formatPrice(fuelPrice)}
     </Price>
   );
 };
 
-StationGrid.EditButton = function StationEditButton({ ...restProps }) {
+StationGrid.EditButton = function StationEditButton({
+  isAuthenticated,
+  ...restProps
+}) {
   const toggleModalHandler = useContext(ToggleModalConext);
-  return <EditButton onClick={() => toggleModalHandler()} {...restProps} />;
+  return (
+    <EditButton
+      onClick={() => {
+        isAuthenticated ? toggleModalHandler() : toast.error("Please login to edit prices");;
+      }}
+      {...restProps}
+    />
+  );
 };
 
 StationGrid.Modal = function StationEditModal({ ...restProps }) {

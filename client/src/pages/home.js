@@ -2,11 +2,11 @@ import React from "react";
 import { HeaderContainer } from "../containers/header";
 import { StationsContainer } from "../containers/stations";
 
-const Home = () => {
+const Home = ({ setAuth, isAuthenticated }) => {
   return (
     <>
-      <HeaderContainer />
-      <StationsContainer />
+      <HeaderContainer setAuth={setAuth} isAuthenticated={isAuthenticated} />
+      <StationsContainer isAuthenticated={isAuthenticated} />
     </>
   );
 };

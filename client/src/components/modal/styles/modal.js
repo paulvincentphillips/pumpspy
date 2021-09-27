@@ -1,4 +1,5 @@
 import styled from "styled-components/macro";
+import NumberFormat from "react-number-format";
 
 export const Background = styled.div`
   position: fixed;
@@ -28,7 +29,7 @@ export const Title = styled.h2`
   padding-top: 1em;
 `;
 
-export const TextBox = styled.input`
+export const TextBox = styled(NumberFormat)`
   width: 170px;
   resize: none;
   margin-bottom: 20px;

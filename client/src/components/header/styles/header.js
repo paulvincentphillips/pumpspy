@@ -38,3 +38,21 @@ export const ButtonLink = styled(ReactRouterLink)`
     background: #3aa345;
   }
 `;
+
+export const Button = styled.button`
+  background-color: #4cce59;
+  color: #ffffff;
+  text-align: center;
+  width: 110px;
+  height: fit-content;
+  border: 0;
+  font-size: 15px;
+  border-radius: 3px;
+  padding: 8px 17px;
+  cursor: pointer;
+  text-decoration: none;
+
+  &:hover {
+    background: #3aa345;
+  }
+`;

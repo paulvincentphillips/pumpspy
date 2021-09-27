@@ -8,6 +8,7 @@ import {
   ConfirmButton,
   CancelButton,
 } from "./styles/modal";
+import { toast } from "react-toastify";
 
 const PriceContext = createContext();
 
@@ -16,18 +17,22 @@ const Modal = function ({ children, ...restProps }) {
 };
 
 Modal.Container = function ModalContainer({ fuelPrice, children }) {
-  const [price, setPrice] = useState();
+  const [initialPrice, setInitialPrice] = useState();
+  const [updatedPrice, setUpdatedPrice] = useState();
 
   useEffect(() => {
-    setPrice(fuelPrice);
+    setInitialPrice(fuelPrice);
+    setUpdatedPrice(fuelPrice);
   }, [fuelPrice]);
 
-  const setPriceHandler = (updatedPrice) => {
-    setPrice(updatedPrice);
+  const setPriceHandler = (inputPrice) => {
+    setUpdatedPrice(inputPrice);
   };
 
   return (
-    <PriceContext.Provider value={{ price, setPriceHandler }}>
+    <PriceContext.Provider
+      value={{ initialPrice, setPriceHandler, updatedPrice }}
+    >
       <Container>{children}</Container>
     </PriceContext.Provider>
   );
@@ -37,15 +42,18 @@ Modal.Title = function ModalTitle({ children }) {
   return <Title>{children}</Title>;
 };
 
-Modal.PriceTextBox = function ModalPriceTextBox({ children }) {
-  const { price, setPriceHandler } = useContext(PriceContext);
+Modal.PriceTextBox = function ModalPriceTextBox({ formatPrice, children }) {
+  const { setPriceHandler, updatedPrice } = useContext(PriceContext);
   return (
     <TextBox
-      defaultValue={price}
+      value={formatPrice(updatedPrice)}
       maxLength="5"
-      type="number"
-      step={"0.1"}
-      onChange={(e) => setPriceHandler(e.target.value)}
+      type="text"
+      allowNegative={false}
+      decimalScale={1}
+      onChange={(e) => {
+        setPriceHandler(e.target.value);
+      }}
     >
       {children}
     </TextBox>
@@ -61,14 +69,26 @@ Modal.ConfirmButton = function ModalConfirmButton({
   updatePrice,
   fuelType,
   id,
-  children
+  children,
+  formatPrice
 }) {
-  const { price } = useContext(PriceContext);
+  let { initialPrice, updatedPrice } = useContext(PriceContext);
+  const regExp = /\d{3}\.\d{1}/;
   return (
     <ConfirmButton
       onClick={() => {
-        toggleModalHandler();
-        updatePrice(id, fuelType, price);
+        initialPrice = formatPrice(initialPrice);
+        updatedPrice = formatPrice(updatedPrice)
+        if (regExp.test(updatedPrice) && updatedPrice !== initialPrice) {
+          toggleModalHandler();
+          updatePrice(id, fuelType, updatedPrice);
+        }
+        if (!regExp.test(updatedPrice)) {
+          toast.error("Invalid price format!");
+        }
+        if (updatedPrice === initialPrice) {
+          toast.warn("You have not edited the price!");
+        }
       }}
     >
       {children}
@@ -78,7 +98,7 @@ Modal.ConfirmButton = function ModalConfirmButton({
 
 Modal.CancelButton = function ModalCancelButton({
   toggleModalHandler,
-  children
+  children,
 }) {
   return (
     <CancelButton

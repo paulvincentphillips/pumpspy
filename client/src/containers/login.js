@@ -3,7 +3,7 @@ import Auth from "../components/auth/index";
 import { SIGN_UP } from "../constants/routes";
 import {toast} from 'react-toastify'
 
-export const SigninContainer = ({ setAuth }) => {
+export const LogInContainer = ({ setAuth }) => {
   const [inputs, setInputs] = useState({
     email: "",
     password: "",

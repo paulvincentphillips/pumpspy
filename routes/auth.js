@@ -6,8 +6,8 @@ const jwtGenerator = require("../utils/jwtGenerator");
 const validInfo = require("../middleware/validInfo");
 const authorization = require("../middleware/authorization");
 
-//register route
-router.post("/register", validInfo, async (req, res) => {
+//signup route
+router.post("/signup", validInfo, async (req, res) => {
   try {
     const { name, email, password } = req.body;
 

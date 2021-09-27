@@ -1,14 +1,14 @@
 import React from "react";
 import { HeaderContainer } from "../containers/header";
-import { SignupContainer } from "../containers/signup";
+import { SignUpContainer } from "../containers/signup";
 
-const Signup = ({setAuth}) => {
+const SignUp = ({setAuth}) => {
   return (
     <>
       <HeaderContainer />
-      <SignupContainer setAuth={setAuth} />
+      <SignUpContainer />
     </>
   );
 }
 
-export default Signup;
+export default SignUp;

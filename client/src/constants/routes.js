@@ -1,3 +1,3 @@
 export const HOME = '/';
-export const SIGN_IN = '/signin';
+export const LOG_IN = '/login';
 export const SIGN_UP = '/signup';

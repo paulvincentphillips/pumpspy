@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import Auth from "../components/auth/index";
-import { SIGN_IN } from "../constants/routes";
+import { LOG_IN } from "../constants/routes";
 import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom";
 
-export const SignupContainer = ({ setAuth }) => {
+export const SignUpContainer = () => {
   const [inputs, setInputs] = useState({
     email: "",
     password: "",
@@ -24,7 +24,7 @@ export const SignupContainer = ({ setAuth }) => {
 
     try {
       const body = { name, email, password };
-      const response = await fetch("/auth/register", {
+      const response = await fetch("/auth/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
@@ -34,7 +34,7 @@ export const SignupContainer = ({ setAuth }) => {
 
       if (parseRes === "success") {
         toast.success("You have successfully created an account!");
-        history.push("/signin");
+        history.push("/login");
       } else {
         toast.error(parseRes);
       }
@@ -48,7 +48,7 @@ export const SignupContainer = ({ setAuth }) => {
       <Auth.Form onSubmitForm={onSubmitForm}>
         <Auth.InputField
           type={"text"}
-          placeholder={"Name"}
+          placeholder={"Full Name"}
           value={name}
           name={"name"}
           onChange={(e) => onChange(e)}
@@ -67,11 +67,11 @@ export const SignupContainer = ({ setAuth }) => {
           name={"password"}
           onChange={(e) => onChange(e)}
         ></Auth.InputField>
-        <Auth.SubmitButton>Register</Auth.SubmitButton>
+        <Auth.SubmitButton>Sign Up</Auth.SubmitButton>
       </Auth.Form>
       <Auth.Text>
         Already have an account?{" "}
-        <Auth.TextLink to={SIGN_IN}>Sign In</Auth.TextLink>
+        <Auth.TextLink to={LOG_IN}>Log In</Auth.TextLink>
       </Auth.Text>
     </Auth>
   );

@@ -6,7 +6,7 @@ import {
   Redirect,
 } from "react-router-dom";
 import * as ROUTES from "./constants/routes";
-import { Home, Signin, Signup } from "./pages";
+import { Home, LogIn, SignUp } from "./pages";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -52,10 +52,10 @@ const App = () => {
         />
         <Route
           exact
-          path={ROUTES.SIGN_IN}
+          path={ROUTES.LOG_IN}
           render={(props) =>
             !isAuthenticated ? (
-              <Signin {...props} setAuth={setAuth} />
+              <LogIn {...props} setAuth={setAuth} />
             ) : (
               <Redirect to={ROUTES.HOME} />
             )
@@ -66,7 +66,7 @@ const App = () => {
           path={ROUTES.SIGN_UP}
           render={(props) =>
             !isAuthenticated ? (
-              <Signup {...props} setAuth={setAuth} />
+              <SignUp {...props} />
             ) : (
               <Redirect to={ROUTES.HOME} />
             )

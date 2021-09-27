@@ -9,7 +9,7 @@ module.exports = function(req, res, next) {
       return /.{8}/.test(userPassword);
     }
   
-    if (req.path === "/register") {
+    if (req.path === "/signup") {
       if (![email, name, password].every(Boolean)) {
         return res.status(401).json("Missing Credentials");
       } else if (!validEmail(email)) {

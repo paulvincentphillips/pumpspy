@@ -42,7 +42,7 @@ if (process.env.NODE_ENV === "production") {
 //stations routes
 app.use("/stations", require("./routes/stations"));
 
-//register and login routes
+//signup and login routes
 app.use("/auth", require("./routes/auth"));
 
 app.get("*", (req, res) => {

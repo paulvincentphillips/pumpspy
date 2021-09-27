@@ -1,7 +1,6 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const pool = require("./db");
 const path = require("path");
 const PORT = process.env.PORT || 5000;
 
@@ -14,11 +13,19 @@ app.use(express.json());
 
 app.use(express.static(path.join(__dirname, "client/build")));
 
-// if (process.env.NODE_ENV === "production") {
-//   //server static content
-//   //npm run build
-//   app.use(express.static(path.join(__dirname, "client/build")));
-// }
+var forceSsl = function (req, res, next) {
+  if (req.headers['x-forwarded-proto'] !== 'https') {
+      return res.redirect(['https://', req.get('Host'), req.url].join(''));
+  }
+  return next();
+};
+
+if (process.env.NODE_ENV === "production") {
+  //server static content
+  //npm run build
+  app.use(express.static(path.join(__dirname, "client/build")));
+  app.use(forceSsl);
+}
 
 //ROUTES//
 

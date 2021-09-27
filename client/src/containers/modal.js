@@ -28,6 +28,7 @@ export const ModalContainer = ({
             updatePrice={updatePrice}
             id={id}
             fuelType={fuelType}
+            formatPrice={formatPrice}
           >
             Confirm
           </Modal.ConfirmButton>

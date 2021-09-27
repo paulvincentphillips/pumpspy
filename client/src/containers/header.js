@@ -1,6 +1,5 @@
 import React from "react";
 import Header from "../components/header/index";
-import logo from "../pump_spy.png";
 import { toast } from "react-toastify";
 
 export const HeaderContainer = ({setAuth, isAuthenticated}) => {
@@ -18,7 +17,7 @@ export const HeaderContainer = ({setAuth, isAuthenticated}) => {
 
   return (
     <Header>
-      <Header.Logo to={"/"} alt="pumpspy.ie" src={logo} />
+      <Header.Logo to={"/"} alt="pumpspy.ie" src={"images/icons/pump_spy.png"} />
       <Header.ButtonContainer>
         {!isAuthenticated ? (
           <>

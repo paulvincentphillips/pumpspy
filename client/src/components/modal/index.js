@@ -19,7 +19,6 @@ const Modal = function ({ children, ...restProps }) {
 Modal.Container = function ModalContainer({ fuelPrice, children }) {
   const [initalPrice, setInitalPrice] = useState();
   const [updatedPrice, setUpdatedPrice] = useState();
-  const regExp = /\d{3}\.\d{1}/;
 
   useEffect(() => {
     setInitalPrice(fuelPrice);
@@ -43,15 +42,8 @@ Modal.Title = function ModalTitle({ children }) {
   return <Title>{children}</Title>;
 };
 
-Modal.PriceTextBox = function ModalPriceTextBox({ children }) {
+Modal.PriceTextBox = function ModalPriceTextBox({ formatPrice, children }) {
   const { setPriceHandler, updatedPrice } = useContext(PriceContext);
-  const formatPrice = (price) => {
-    price = price + "";
-    if (price.indexOf(".") === -1) {
-      return price + ".0";
-    }
-    return price;
-  };
   return (
     <TextBox
       value={formatPrice(updatedPrice)}

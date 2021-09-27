@@ -10,11 +10,18 @@ export const ModalContainer = ({
   ...restProps
 }) => {
   const toggleModalHandler = useContext(ToggleModalConext);
+  const formatPrice = (price) => {
+    price = price + "";
+    if (price.indexOf(".") === -1) {
+      return price + ".0";
+    }
+    return price;
+  };
   return (
     <Modal>
       <Modal.Container fuelPrice={price}>
-        <Modal.Title>Edit Price {price}</Modal.Title>
-        <Modal.PriceTextBox />
+        <Modal.Title>Edit Price {formatPrice(price)}</Modal.Title>
+        <Modal.PriceTextBox formatPrice={formatPrice}/>
         <Modal.ButtonContainer>
           <Modal.ConfirmButton
             toggleModalHandler={toggleModalHandler}

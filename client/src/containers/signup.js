@@ -24,14 +24,20 @@ export const SignupContainer = ({ setAuth }) => {
 
     try {
       const body = { name, email, password };
-      await fetch("/auth/register", {
+      const response = await fetch("/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
 
-      toast.success("You have successfully created an account!");
-      history.push("/signin");
+      const parseRes = await response.json();
+
+      if (parseRes === "success") {
+        toast.success("You have successfully created an account!");
+        history.push("/signin");
+      } else {
+        toast.error(parseRes);
+      }
     } catch (error) {
       console.log(error.message);
     }

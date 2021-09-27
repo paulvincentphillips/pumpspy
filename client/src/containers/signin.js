@@ -27,7 +27,6 @@ export const SigninContainer = ({ setAuth }) => {
       });
 
       const parseRes = await response.json();
-
       if (parseRes.token) {
         localStorage.setItem("token", parseRes.token);
 

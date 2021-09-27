@@ -17,11 +17,11 @@ const Modal = function ({ children, ...restProps }) {
 };
 
 Modal.Container = function ModalContainer({ fuelPrice, children }) {
-  const [initalPrice, setInitalPrice] = useState();
+  const [initialPrice, setInitialPrice] = useState();
   const [updatedPrice, setUpdatedPrice] = useState();
 
   useEffect(() => {
-    setInitalPrice(fuelPrice);
+    setInitialPrice(fuelPrice);
     setUpdatedPrice(fuelPrice);
   }, [fuelPrice]);
 
@@ -31,7 +31,7 @@ Modal.Container = function ModalContainer({ fuelPrice, children }) {
 
   return (
     <PriceContext.Provider
-      value={{ initalPrice, setPriceHandler, updatedPrice }}
+      value={{ initialPrice, setPriceHandler, updatedPrice }}
     >
       <Container>{children}</Container>
     </PriceContext.Provider>
@@ -71,19 +71,19 @@ Modal.ConfirmButton = function ModalConfirmButton({
   id,
   children,
 }) {
-  const { initalPrice, updatedPrice } = useContext(PriceContext);
+  const { initialPrice, updatedPrice } = useContext(PriceContext);
   const regExp = /\d{3}\.\d{1}/;
   return (
     <ConfirmButton
       onClick={() => {
-        if (regExp.test(updatedPrice) && updatedPrice !== initalPrice) {
+        if (regExp.test(updatedPrice) && updatedPrice !== initialPrice) {
           toggleModalHandler();
           updatePrice(id, fuelType, updatedPrice);
         }
         if (regExp.test(updatedPrice) === false) {
           toast.error("Invalid price format!");
         }
-        if (updatedPrice === initalPrice) {
+        if (updatedPrice === initialPrice) {
           toast.warn("You have not edited the price!");
         }
       }}

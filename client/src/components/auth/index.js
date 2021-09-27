@@ -18,7 +18,7 @@ Auth.Title = ({ children, ...restProps }) => {
 };
 
 Auth.Form = ({ onSubmitForm, children, ...restProps }) => {
-  return <Form onSubmit={onSubmitForm} {...restProps}>{children}</Form>;
+  return <Form noValidate onSubmit={onSubmitForm} {...restProps}>{children}</Form>;
 };
 
 Auth.InputField = ({ type, children, ...restProps }) => {

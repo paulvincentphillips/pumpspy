@@ -71,11 +71,13 @@ Modal.ConfirmButton = function ModalConfirmButton({
   id,
   children,
 }) {
-  const { initialPrice, updatedPrice } = useContext(PriceContext);
+  let { initialPrice, updatedPrice } = useContext(PriceContext);
   const regExp = /\d{3}\.\d{1}/;
   return (
     <ConfirmButton
       onClick={() => {
+        initialPrice = initialPrice.toString();
+        updatedPrice = updatedPrice.toString();
         if (regExp.test(updatedPrice) && updatedPrice !== initialPrice) {
           toggleModalHandler();
           updatePrice(id, fuelType, updatedPrice);

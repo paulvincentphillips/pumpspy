@@ -4,20 +4,15 @@ const cors = require("cors");
 const path = require("path");
 const PORT = process.env.PORT || 5000;
 
-//provess.env.PORT
-//provess.env.NORDE_ENV => production or undefined
-
 //middleware
 app.use(cors());
 app.use(express.json());
 
-app.use(express.static(path.join(__dirname, "client/build")));
-
-const forceSsl = function (req, res, next) {
-  if (req.headers["x-forwarded-proto"] !== "https") {
-    return res.redirect(["https://", req.get("Host"), req.url].join(""));
+const redirectSSL = function (req, res, next) {
+  if (req.headers["x-forwarded-proto"] === "https") {
+    return next();
   }
-  return next();
+  res.redirect("https://" + req.hostname + req.url);
 };
 
 const redirectNakedDomain = function (req, res, next) {
@@ -30,11 +25,9 @@ const redirectNakedDomain = function (req, res, next) {
 };
 
 if (process.env.NODE_ENV === "production") {
-  //server static content
-  //npm run build
   app.use(express.static(path.join(__dirname, "client/build")));
-  app.use(redirectNakedDomain);
-  app.use(forceSsl);
+  //app.use(redirectNakedDomain);
+  app.use(redirectSSL);
 }
 
 //ROUTES//
@@ -46,7 +39,7 @@ app.use("/stations", require("./routes/stations"));
 app.use("/auth", require("./routes/auth"));
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "client/build.index.html"));
+  res.sendFile(path.join(__dirname, "client/build", "index.html"));
 });
 
 app.listen(PORT, () => {

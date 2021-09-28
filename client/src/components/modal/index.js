@@ -70,7 +70,7 @@ Modal.ConfirmButton = function ModalConfirmButton({
   fuelType,
   id,
   children,
-  formatPrice
+  formatPrice,
 }) {
   let { initialPrice, updatedPrice } = useContext(PriceContext);
   const regExp = /\d{3}\.\d{1}/;
@@ -78,10 +78,10 @@ Modal.ConfirmButton = function ModalConfirmButton({
     <ConfirmButton
       onClick={() => {
         initialPrice = formatPrice(initialPrice);
-        updatedPrice = formatPrice(updatedPrice)
+        updatedPrice = updatedPrice.toString();
         if (regExp.test(updatedPrice) && updatedPrice !== initialPrice) {
           toggleModalHandler();
-          updatePrice(id, fuelType, updatedPrice);
+          updatePrice(id, fuelType, formatPrice(updatedPrice));
         }
         if (!regExp.test(updatedPrice)) {
           toast.error("Invalid price format!");

@@ -21,7 +21,7 @@ export const HeaderContainer = ({setAuth, isAuthenticated}) => {
       <Header.ButtonContainer>
         {!isAuthenticated ? (
           <>
-            <Header.ButtonLink to={"/login"}>Log In</Header.ButtonLink>
+            <Header.ButtonLink className={"loginBtn"} to={"/login"}>Log In</Header.ButtonLink>
             <Header.ButtonLink to={"/signup"}>Sign Up</Header.ButtonLink>
           </>
         ) : (

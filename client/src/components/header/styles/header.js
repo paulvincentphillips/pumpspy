@@ -18,7 +18,7 @@ export const Logo = styled.img`
 export const ButtonContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 240px;
+  width: 380px;
 `;
 
 export const ButtonLink = styled(ReactRouterLink)`
@@ -33,6 +33,11 @@ export const ButtonLink = styled(ReactRouterLink)`
   padding: 8px 17px;
   cursor: pointer;
   text-decoration: none;
+
+  &.loginBtn {
+    margin-left: 110px;
+    margin-right: 50px;
+  }
 
   &:hover {
     background: #3aa345;
@@ -51,6 +56,7 @@ export const Button = styled.button`
   padding: 8px 17px;
   cursor: pointer;
   text-decoration: none;
+  margin-left: 250px;
 
   &:hover {
     background: #3aa345;

@@ -14,8 +14,8 @@ export const Background = styled.div`
 export const Container = styled.div`
   position: fixed;
   background: #6e7269;
-  width: 25%;
-  height: 25%;
+  width: 500px;
+  height: 250px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);

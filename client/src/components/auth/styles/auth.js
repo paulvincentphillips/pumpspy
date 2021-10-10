@@ -5,8 +5,6 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 620px;
-  margin: auto;
 `;
 
 export const Title = styled.h2``;
@@ -35,6 +33,7 @@ export const SubmitButton = styled.button`
   padding: 8px 17px;
   cursor: pointer;
   text-decoration: none;
+  width: 100%;
 
   &:hover {
     background: #3aa345;

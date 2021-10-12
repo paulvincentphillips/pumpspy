@@ -4,8 +4,7 @@
     "npm": "7.22.0"
   },
   "scripts": {
-    "start": "node index.js",
-    "heroku-postbuild": "cd client && npm install && npm run build"
+    "start": "node index.js"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",

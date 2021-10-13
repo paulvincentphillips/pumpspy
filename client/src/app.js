@@ -36,44 +36,45 @@ const App = () => {
   };
   return (
     <>
-    <ToastContainer theme="colored"/>
-    <Router>
-      <Switch>
-        <Route
-          exact
-          path={ROUTES.HOME}
-          render={(props) => (
-            <Home
-              {...props}
-              setAuth={setAuth}
-              isAuthenticated={isAuthenticated}
-            />
-          )}
-        />
-        <Route
-          exact
-          path={ROUTES.LOG_IN}
-          render={(props) =>
-            !isAuthenticated ? (
-              <LogIn {...props} setAuth={setAuth} />
-            ) : (
-              <Redirect to={ROUTES.HOME} />
-            )
-          }
-        />
-        <Route
-          exact
-          path={ROUTES.SIGN_UP}
-          render={(props) =>
-            !isAuthenticated ? (
-              <SignUp {...props} />
-            ) : (
-              <Redirect to={ROUTES.HOME} />
-            )
-          }
-        />
-      </Switch>
-    </Router>
+      <ToastContainer theme="colored" />
+      <Router>
+        <Switch>
+          <Route
+            exact
+            path={ROUTES.HOME}
+            render={(props) => (
+              <Home
+                {...props}
+                setAuth={setAuth}
+                isAuthenticated={isAuthenticated}
+              />
+            )}
+          />
+          <Route
+            exact
+            path={ROUTES.LOG_IN}
+            render={(props) =>
+              !isAuthenticated ? (
+                <LogIn {...props} setAuth={setAuth} />
+              ) : (
+                <Redirect to={ROUTES.HOME} />
+              )
+            }
+          />
+          <Route
+            exact
+            path={ROUTES.SIGN_UP}
+            render={(props) =>
+              !isAuthenticated ? (
+                <SignUp {...props} />
+              ) : (
+                <Redirect to={ROUTES.HOME} />
+              )
+            }
+          />
+          <Redirect to={ROUTES.HOME} />
+        </Switch>
+      </Router>
     </>
   );
 };

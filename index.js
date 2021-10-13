@@ -11,10 +11,10 @@ app.use(express.json());
 //ROUTES//
 
 //stations routes
-app.use("/stations", require("./routes/stations"));
+app.use("/api/stations", require("./routes/stations"));
 
 //signup and login routes
-app.use("/auth", require("./routes/auth"));
+app.use("/api/auth", require("./routes/auth"));
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "client/build", "index.html"));

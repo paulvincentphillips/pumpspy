@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Auth from "../components/auth/index";
 import { SIGN_UP } from "../constants/routes";
-import {toast} from 'react-toastify'
+import { toast } from "react-toastify";
 
 export const LogInContainer = ({ setAuth }) => {
   const [inputs, setInputs] = useState({
@@ -20,7 +20,7 @@ export const LogInContainer = ({ setAuth }) => {
 
     try {
       const body = { email, password };
-      const response = await fetch("/auth/login", {
+      const response = await fetch("/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
@@ -32,7 +32,7 @@ export const LogInContainer = ({ setAuth }) => {
 
         setAuth(true);
         toast.success("You have successfully logged in!");
-      }else{
+      } else {
         setAuth(false);
         toast.error(parseRes);
       }

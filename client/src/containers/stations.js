@@ -6,7 +6,7 @@ export const StationsContainer = ({isAuthenticated}) => {
 
   const getStations = async () => {
     try {
-      const response = await fetch("/stations");
+      const response = await fetch("/api/stations");
       const jsonData = await response.json();
 
       setStations(jsonData);
@@ -26,7 +26,7 @@ export const StationsContainer = ({isAuthenticated}) => {
   const updateDatabasePrice = async (id, fuelType, price) => {
     try {
       const body = { price };
-      await fetch(`/stations/${fuelType}/${id}`, {
+      await fetch(`/api/stations/${fuelType}/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),

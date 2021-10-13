@@ -7,18 +7,31 @@ export const Container = styled.div`
   height: 100px;
   align-items: center;
   justify-content: space-between;
+
+  @media (max-width: 822px) {
+    height: 84px;
+    margin: 0;
+  }
 `;
 
 export const Logo = styled.img`
   height: auto;
   width: 134px;
   margin-right: 40px;
+
+  @media (max-width: 822px) {
+    width: 108px;
+    margin-right: 0px;
+    margin-left: 13px;
+  }
 `;
 
 export const ButtonContainer = styled.div`
   display: flex;
-  justify-content: space-between;
-  width: 380px;
+
+  @media (max-width: 822px) {
+    flex-direction: column;
+  }
 `;
 
 export const ButtonLink = styled(ReactRouterLink)`
@@ -34,7 +47,23 @@ export const ButtonLink = styled(ReactRouterLink)`
   cursor: pointer;
   text-decoration: none;
 
+  @media (max-width: 822px) {
+    margin-right: 10px;
+    height: 28px;
+    font-size: 0.8em;
+  }
+
   &.loginBtn {
+    margin-left: 110px;
+    margin-right: 50px;
+
+    @media (max-width: 822px) {
+      margin: 0;
+      margin-bottom: 8px;
+    }
+  }
+
+  &.headerBtn {
     margin-left: 110px;
     margin-right: 50px;
   }
@@ -56,7 +85,12 @@ export const Button = styled.button`
   padding: 8px 17px;
   cursor: pointer;
   text-decoration: none;
-  margin-left: 250px;
+  margin-right: 10px;
+
+  @media (max-width: 822px) {
+    height: 28px;
+    font-size: 0.8em;
+  }
 
   &:hover {
     background: #3aa345;

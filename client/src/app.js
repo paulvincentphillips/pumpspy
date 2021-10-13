@@ -36,7 +36,7 @@ const App = () => {
   };
   return (
     <>
-      <ToastContainer theme="colored" />
+      <ToastContainer theme="colored" position="bottom-center" limit="3" />
       <Router>
         <Switch>
           <Route

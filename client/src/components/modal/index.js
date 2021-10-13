@@ -87,7 +87,7 @@ Modal.ConfirmButton = function ModalConfirmButton({
           toast.error("Invalid price format!");
         }
         if (updatedPrice === initialPrice) {
-          toast.warn("You have not edited the price!");
+          toast.warn("You have not changed the price!");
         }
       }}
     >

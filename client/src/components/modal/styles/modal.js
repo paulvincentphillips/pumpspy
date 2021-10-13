@@ -23,6 +23,11 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media (max-width: 822px) {
+    width: 300px;
+    height:
+  }
 `;
 
 export const Title = styled.h2`

@@ -15,7 +15,7 @@ const App = () => {
 
   const checkAuthenticated = async () => {
     try {
-      const res = await fetch("/auth/verify", {
+      const res = await fetch("/api/auth/verify", {
         method: "GET",
         headers: { jwt_token: localStorage.token },
       });

@@ -51,7 +51,6 @@ const App = () => {
             )}
           />
           <Route
-            exact
             path={ROUTES.LOG_IN}
             render={(props) =>
               !isAuthenticated ? (

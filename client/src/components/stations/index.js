@@ -3,6 +3,7 @@ import { ModalContainer } from "../../containers/modal";
 import {
   GridContainer,
   RowContainer,
+  LogoContainer,
   Logo,
   InfoContainer,
   StationInfo,
@@ -22,6 +23,10 @@ const StationGrid = ({ ...restProps }) => {
 
 StationGrid.StationRow = ({ ...restProps }) => {
   return <RowContainer {...restProps} />;
+};
+
+StationGrid.LogoContainer = ({ ...restProps }) => {
+  return <LogoContainer {...restProps} />;
 };
 
 StationGrid.Logo = ({ ...restProps }) => {

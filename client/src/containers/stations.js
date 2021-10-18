@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import StationGrid from "../components/stations/index";
 
-export const StationsContainer = ({isAuthenticated}) => {
+export const StationsContainer = ({ isAuthenticated }) => {
   const [stations, setStations] = useState([]);
 
   const getStations = async () => {
@@ -49,10 +49,13 @@ export const StationsContainer = ({isAuthenticated}) => {
     <StationGrid>
       {stations.map((item) => (
         <StationGrid.StationRow key={item.station_id}>
-          <StationGrid.Logo
-            src={`images/logos/${item.brand.toLowerCase()}.png`}
-            alt={item.alt}
-          />
+          <StationGrid.LogoContainer>
+            <StationGrid.Logo
+              src={`images/logos/${item.brand.toLowerCase()}.png`}
+              alt={item.alt}
+            />
+          </StationGrid.LogoContainer>
+
           <StationGrid.InfoBox>
             <StationGrid.StationInfo>{item.name}</StationGrid.StationInfo>
             <StationGrid.StationInfo>{item.address}</StationGrid.StationInfo>

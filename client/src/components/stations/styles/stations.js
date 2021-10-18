@@ -41,7 +41,7 @@ export const LogoContainer = styled.div`
 
 export const Logo = styled.img`
   height: auto;
-  width: 100px;
+  width: 120px;
   margin: auto;
 
   @media (max-width: 822px) {

@@ -7,7 +7,10 @@ export const StationsContainer = ({ isAuthenticated }) => {
   const getStations = async () => {
     try {
       const response = await fetch("/api/stations");
-      const jsonData = await response.json();
+      let jsonData = await response.json();
+
+      jsonData = jsonData.sort((a, b) => a.petrol - b.petrol || a.diesel - b.diesel);
+      jsonData = jsonData.sort((a,b) => {return new Date(b.updated) - new Date(a.updated)});
 
       setStations(jsonData);
     } catch (error) {

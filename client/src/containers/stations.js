@@ -3,14 +3,53 @@ import StationGrid from "../components/stations/index";
 
 export const StationsContainer = ({ isAuthenticated }) => {
   const [stations, setStations] = useState([]);
+  const [selectedCounty, setSelectedCounty] = useState({
+    value: "Clare",
+    label: "Clare",
+  });
+  const [selectedTown, setSelectedTown] = useState({
+    value: "",
+    label: "All Stations",
+  });
+
+  const county = [{ value: "Clare", label: "Clare" }];
+
+  const town = [
+    { value: "", label: "All Stations" },
+    { value: "Ennis", label: "Ennis" },
+    { value: "Shannon", label: "Shannon" },
+    { value: "Clarecastle", label: "Clarecastle" },
+    { value: "Ennistymon", label: "Ennistymon" },
+    { value: "Darragh North", label: "Darragh North" },
+    { value: "Killaloe", label: "Killaloe" },
+    { value: "Lissycasey", label: "Lissycasey" },
+    { value: "Kilmihil", label: "Kilmihil" },
+    { value: "Kilrush", label: "Kilrush" },
+    { value: "Tulla", label: "Tulla" },
+    { value: "Corofin", label: "Corofin" },
+    { value: "Liscannor", label: "Liscannor" },
+    { value: "Corbally", label: "Corbally" },
+    { value: "Mountshannon", label: "Mountshannon" },
+    { value: "Miltown Malbay", label: "Miltown Malbay" },
+    { value: "Sixmilebridge", label: "Sixmilebridge" },
+    { value: "Scarriff", label: "Scarriff" },
+  ];
+
+  const updateTown = async (town) => {
+    setSelectedTown(town);
+  };
 
   const getStations = async () => {
     try {
       const response = await fetch("/api/stations");
       let jsonData = await response.json();
 
-      jsonData = jsonData.sort((a, b) => a.petrol - b.petrol || a.diesel - b.diesel);
-      jsonData = jsonData.sort((a,b) => {return new Date(b.updated) - new Date(a.updated)});
+      jsonData = jsonData.sort(
+        (a, b) => a.petrol - b.petrol || a.diesel - b.diesel
+      );
+      jsonData = jsonData.sort((a, b) => {
+        return new Date(b.updated) - new Date(a.updated);
+      });
 
       setStations(jsonData);
     } catch (error) {
@@ -50,7 +89,22 @@ export const StationsContainer = ({ isAuthenticated }) => {
 
   return (
     <StationGrid>
-      {stations.map((item) => (
+      <StationGrid.DropdownContainer>
+        <StationGrid.Dropdown
+          value={selectedCounty}
+          onChange={(e) => setSelectedCounty(e)}
+          options={county}
+          isSearchable={false}
+        />
+        <StationGrid.Dropdown
+          value={selectedTown}
+          onChange={(e) => updateTown(e)}
+          options={town}
+          isSearchable={false}
+        />
+      </StationGrid.DropdownContainer>
+      {stations.filter(station => station.address.includes(selectedTown.value)).map(item => {
+        return(
         <StationGrid.StationRow key={item.station_id}>
           <StationGrid.LogoContainer>
             <StationGrid.Logo
@@ -101,7 +155,7 @@ export const StationsContainer = ({ isAuthenticated }) => {
             </StationGrid.PriceRow>
           </StationGrid.PriceBox>
         </StationGrid.StationRow>
-      ))}
+      )})}
     </StationGrid>
   );
 };

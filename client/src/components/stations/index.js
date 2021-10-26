@@ -2,6 +2,8 @@ import React, { useState, createContext, useContext } from "react";
 import { ModalContainer } from "../../containers/modal";
 import {
   GridContainer,
+  DropdownContainer,
+  Dropdown,
   RowContainer,
   LogoContainer,
   Logo,
@@ -19,6 +21,14 @@ export const ToggleModalConext = createContext();
 
 const StationGrid = ({ ...restProps }) => {
   return <GridContainer {...restProps} />;
+};
+
+StationGrid.DropdownContainer = ({ children, ...restProps }) => {
+  return <DropdownContainer {...restProps}>{children}</DropdownContainer>;
+};
+
+StationGrid.Dropdown = ({ children, ...restProps }) => {
+  return <Dropdown {...restProps}>{children}</Dropdown>;
 };
 
 StationGrid.StationRow = ({ ...restProps }) => {
@@ -91,6 +101,7 @@ StationGrid.EditButton = function StationEditButton({
         isAuthenticated ? toggleModalHandler() : toast.error("Please login to edit prices");;
       }}
       {...restProps}
+
     />
   );
 };

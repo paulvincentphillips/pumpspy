@@ -1,4 +1,5 @@
 import styled from "styled-components/macro";
+import Select from "react-select";
 
 export const GridContainer = styled.div`
   display: flex;
@@ -6,6 +7,33 @@ export const GridContainer = styled.div`
   height: auto;
   align-items: center;
   margin: auto;
+`;
+
+export const DropdownContainer = styled.div`
+  display: flex;
+  height: 100px;
+  align-items: center;
+
+  @media (max-width: 822px) {
+    height: 60px;
+    margin: 0;
+  }
+`;
+
+export const Dropdown = styled(Select)`
+  width: 160px;
+  text-align: center;
+  margin: 20px;
+  text-color: black;
+
+  .css-26l3qy-menu {
+    color: black;
+  }
+  
+  @media (max-width: 822px) {
+    font-size: 0.6em;
+    width: 120px;
+  }
 `;
 
 export const RowContainer = styled.div`
@@ -82,10 +110,9 @@ export const PriceBox = styled.div`
 `;
 
 export const PriceRowContainer = styled.div`
-
-@media (max-width: 822px) {
-  display: flex;
-}
+  @media (max-width: 822px) {
+    display: flex;
+  }
 `;
 
 export const Price = styled.p`

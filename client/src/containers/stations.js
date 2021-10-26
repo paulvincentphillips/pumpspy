@@ -87,6 +87,8 @@ export const StationsContainer = ({ isAuthenticated }) => {
     getStations();
   }, []);
 
+  const filterString = `${selectedTown.value}, Co. ${selectedCounty.value}`;
+
   return (
     <StationGrid>
       <StationGrid.DropdownContainer>
@@ -103,7 +105,7 @@ export const StationsContainer = ({ isAuthenticated }) => {
           isSearchable={false}
         />
       </StationGrid.DropdownContainer>
-      {stations.filter(station => station.address.includes(selectedTown.value)).map(item => {
+      {stations.filter(station => station.address.includes(filterString)).map(item => {
         return(
         <StationGrid.StationRow key={item.station_id}>
           <StationGrid.LogoContainer>

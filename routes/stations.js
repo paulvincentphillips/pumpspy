@@ -12,20 +12,6 @@ router.get("/", async (req, res) => {
   }
 });
 
-//get stations for specific County & Town
-router.get("/:county/:town", async (req, res) => {
-  try {
-    const { county, town } = req.params;
-    const filteredStations = await pool.query(
-      "SELECT * FROM stations WHERE address LIKE '%' || $1 || ', Co. ' || $2 || '%'",
-      [town, county]
-    );
-    res.json(filteredStations.rows);
-  } catch (error) {
-    console.error(error.message);
-  }
-});
-
 //get stations for specific County
 router.get("/:county", async (req, res) => {
   try {

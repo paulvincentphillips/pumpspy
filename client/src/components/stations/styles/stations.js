@@ -24,15 +24,48 @@ export const Dropdown = styled(Select)`
   width: 160px;
   text-align: center;
   margin: 20px;
-  text-color: black;
 
   .css-26l3qy-menu {
-    color: black;
+    background-color: #6e7269;
+  }
+
+  .css-1s2u09g-control {
+    background-color: #6e7269;
+  }
+
+  .css-1n7v3ny-option {
+    background-color: #2684FF;
+  }
+
+  .css-9gakcf-option {
+    background-color: #6e7269;
+  }
+
+  .css-1pahdxg-control {
+    background-color: #6e7269;
+  }
+
+  .css-qc6sy-singleValue {
+    color: white;
   }
   
   @media (max-width: 822px) {
     font-size: 0.6em;
-    width: 120px;
+    width: 105px;
+    margin: 5px;
+
+    .css-1okebmr-indicatorSeparator {
+      width: 0;
+    }
+
+    .css-319lph-ValueContainer{
+      padding: 0;
+    }
+
+    .css-tj5bde-Svg {
+      width: 15px;
+      height: 15px;
+    }
   }
 `;
 

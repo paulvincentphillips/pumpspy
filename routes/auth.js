@@ -16,7 +16,7 @@ router.post("/signup", validInfo, async (req, res) => {
     ]);
 
     if (user.rows.length !== 0) {
-      return res.status(401).send("User already exists");
+      return res.status(401).json("Email already in use");
     }
 
     const saltRound = 10;
@@ -26,7 +26,7 @@ router.post("/signup", validInfo, async (req, res) => {
 
     await pool.query(
       "INSERT INTO users(user_name, user_email, user_password) VALUES ($1, $2, $3) RETURNING *",
-      [name, email, bcryptPassword]
+      [name.trimLeft(), email, bcryptPassword]
     );
     res.json("success");
   } catch (error) {

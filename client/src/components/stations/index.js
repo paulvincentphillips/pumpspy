@@ -13,6 +13,7 @@ import {
   PriceRowContainer,
   Price,
   EditButton,
+  Pagination,
 } from "./styles/stations";
 import { toast } from "react-toastify";
 
@@ -109,6 +110,10 @@ StationGrid.EditButton = function StationEditButton({
 StationGrid.Modal = function StationEditModal({ ...restProps }) {
   const displayModal = useContext(DisplayModalContext);
   return displayModal ? <ModalContainer {...restProps} /> : <></>;
+};
+
+StationGrid.Pagination = ({ children, ...restProps }) => {
+  return <Pagination {...restProps}>{children}</Pagination>;
 };
 
 export default StationGrid;

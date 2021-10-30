@@ -1,5 +1,6 @@
 import styled from "styled-components/macro";
 import Select from "react-select";
+import ReactPaginate from 'react-paginate';
 
 export const GridContainer = styled.div`
   display: flex;
@@ -79,7 +80,7 @@ export const RowContainer = styled.div`
   border-right: 2px solid black;
   border-left: 2px solid black;
 
-  :last-child {
+  :last-of-type {
     border-bottom: 2px solid black;
     margin-bottom: 10px;
   }
@@ -174,5 +175,39 @@ export const EditButton = styled.img`
     height: 15px;
     margin-top: 10px;
     margin-right: 13px;
+  }
+`;
+
+export const Pagination = styled(ReactPaginate)`
+    list-style: none;
+    display: flex;
+    justify-conent: center;
+    margin-bottom: 30px;
+    margin-top: 20px;
+    padding: 0;
+
+    a {
+      padding: 10px;
+      margin: 8px;
+      border-radius: 4px;
+      border: 1px solid hsl(0, 0%, 80%);
+      cursor: pointer;
+    }
+
+    a:hover{
+      background-color: #2684FF;
+    }
+
+    .paginationActive a{
+      background-color: #2684FF;
+    }
+
+    .paginationDisabled a:hover {
+      background-color: transparent;
+      cursor: default;
+    }
+
+  @media (max-width: 822px) {
+    font-size: 0.6em;
   }
 `;

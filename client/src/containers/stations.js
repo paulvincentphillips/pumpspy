@@ -16,6 +16,14 @@ export const StationsContainer = ({ isAuthenticated }) => {
     label: "Most Recent",
   });
 
+  const [pageNumber, setPageNumber] = useState(0);
+  const [stationCount, setStationCount] = useState(0);
+
+  const stationsPerPage = 10;
+  const pagesVisited = pageNumber * stationsPerPage;
+  let pageCount = Math.ceil(stationCount / stationsPerPage);
+  const changePage = ({ selected }) => setPageNumber(selected);
+
   const county = [{ value: "Clare", label: "Clare" }];
 
   const town = [
@@ -23,6 +31,7 @@ export const StationsContainer = ({ isAuthenticated }) => {
     { value: "Ennis", label: "Ennis" },
     { value: "Shannon", label: "Shannon" },
     { value: "Clarecastle", label: "Clarecastle" },
+    { value: "Clonlea", label: "Clonlea" },
     { value: "Crusheen", label: "Crusheen" },
     { value: "Ennistymon", label: "Ennistymon" },
     { value: "Darragh North", label: "Darragh North" },
@@ -32,11 +41,13 @@ export const StationsContainer = ({ isAuthenticated }) => {
     { value: "Kilrush", label: "Kilrush" },
     { value: "Tulla", label: "Tulla" },
     { value: "Corofin", label: "Corofin" },
+    { value: "Corbally", label: "Corbally" },
     { value: "Liscannor", label: "Liscannor" },
     { value: "Mountshannon", label: "Mountshannon" },
     { value: "Miltown Malbay", label: "Miltown Malbay" },
     { value: "Sixmilebridge", label: "Sixmilebridge" },
     { value: "Scarriff", label: "Scarriff" },
+    { value: "Blackwater", label: "Blackwater" },
   ];
 
   const sort = [
@@ -47,11 +58,11 @@ export const StationsContainer = ({ isAuthenticated }) => {
     { value: "DHTL", label: "Diesel High to Low" },
   ];
 
-  const updateTown = town => {
+  const updateTown = (town) => {
     setSelectedTown(town);
   };
 
-  const updateSort = sort => {
+  const updateSort = (sort) => {
     setSelectedSort(sort);
   };
 
@@ -61,6 +72,7 @@ export const StationsContainer = ({ isAuthenticated }) => {
       let jsonData = await response.json();
 
       setStations(jsonData);
+      setStationCount(jsonData.length);
     } catch (error) {
       console.error(error.message);
     }
@@ -123,6 +135,16 @@ export const StationsContainer = ({ isAuthenticated }) => {
     getStations();
   }, []);
 
+  useEffect(() => {
+    console.log(stations);
+    if (stations) {
+      setStationCount(
+        stations.filter((station) => station.address.includes(filterString))
+          .length
+      );
+    }
+  }, [selectedTown]);
+
   const filterString = `${selectedTown.value}, Co. ${selectedCounty.value}`;
 
   return (
@@ -149,6 +171,7 @@ export const StationsContainer = ({ isAuthenticated }) => {
       </StationGrid.DropdownContainer>
       {sortStations(stations)
         .filter((station) => station.address.includes(filterString))
+        .slice(pagesVisited, pagesVisited + stationsPerPage)
         .map((item) => {
           return (
             <StationGrid.StationRow key={item.station_id}>
@@ -167,6 +190,7 @@ export const StationsContainer = ({ isAuthenticated }) => {
                 <StationGrid.StationInfo>
                   Last Updated: {formatDate(item.updated)}
                 </StationGrid.StationInfo>
+                
               </StationGrid.InfoBox>
               <StationGrid.PriceBox>
                 <StationGrid.PriceRow>
@@ -205,6 +229,12 @@ export const StationsContainer = ({ isAuthenticated }) => {
             </StationGrid.StationRow>
           );
         })}
+      <StationGrid.Pagination
+        pageCount={pageCount}
+        onPageChange={changePage}
+        disabledClassName={"paginationDisabled"}
+        activeClassName={"paginationActive"}
+      />
     </StationGrid>
   );
 };

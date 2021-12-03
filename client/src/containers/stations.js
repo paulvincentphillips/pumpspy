@@ -35,6 +35,8 @@ export const StationsContainer = ({ isAuthenticated }) => {
     { value: "Crusheen", label: "Crusheen" },
     { value: "Ennistymon", label: "Ennistymon" },
     { value: "Darragh North", label: "Darragh North" },
+    { value: "Ruan", label: "Ruan" },
+    { value: "Bunratty", label: "Bunratty" },
     { value: "Killaloe", label: "Killaloe" },
     { value: "Lissycasey", label: "Lissycasey" },
     { value: "Kilmihil", label: "Kilmihil" },
